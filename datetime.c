@@ -4,20 +4,14 @@
 #include <stdlib.h>
 
 int isLeapYear(int pYear){
-    int ans = 0;
-
     if((pYear % 4 == 0) && ((pYear % 100 != 0)||(pYear % 400 == 0))){
-        ans = 1;
+        return 1;
     }
-    else{
-        ans = 0;
-    }
-    return ans;
+    return 0;
 }
 
 int isDateValid(sDate *Date){
     int daysPerMonth[12] = {31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31};
-    int ans = 0;
     int ansYear = 0;
     int ansMonth = 0;
     int ansDay = 0;
@@ -48,13 +42,9 @@ int isDateValid(sDate *Date){
     }
 
     if((ansYear == 1) && (ansMonth == 1) && (ansDay == 1)){
-        ans = 1;
+        return 1;
     }
-    else{
-        ans = 0;
-    }
-
-    return ans;
+    return 0;
 }
 
 int getDateFromString(char str[], sDate *Date){

@@ -4,14 +4,14 @@
 
 void clearBuffer(void){
     char dummy;
-
     do{
         scanf("%c", &dummy);
     } while(dummy != '\n');
 }
 
 void waitForEnter(void){
-
+    printf("Druecke Enter um fortzufahren...");
+    while (getchar() != '\n');
 }
 
 void clearScreen(void){
@@ -33,7 +33,11 @@ int askYesOrNo(char *Question){
         clearScreen();
         return 1;
     }
-    else {
-        return 0;
-    }
+    return 0;
 }
+
+void printLine(char c, int count){
+    for (int i = 0; i < count; i++)
+        printf("%c", c);
+}
+
