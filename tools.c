@@ -15,25 +15,25 @@ void waitForEnter(void){
 }
 
 void clearScreen(void){
-    system("clear");
+    system("cls");
+    // system("clear");
 }
 
 int askYesOrNo(char *Question){
-    int ans = 0;
     char answer;
 
-    printf("%s", Question);
-
     do{
+        printf("%s", Question);
         scanf("%c", &answer);
+        if (answer == '\n') continue;
         clearBuffer();
     } while((answer != 'j') && (answer != 'J') && (answer != 'n') && (answer != 'N'));
 
     if((answer == 'j')||(answer == 'J')){
-        ans = 1;
+        clearScreen();
+        return 1;
     }
-    else if((answer == 'n') || (answer == 'N')){
-        ans = 0;
+    else {
+        return 0;
     }
-    return ans;
 }
