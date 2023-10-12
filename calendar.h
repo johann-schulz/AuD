@@ -2,7 +2,7 @@
 #define calendar_h
 
     /***************************************************************************
-    *  Name:
+    *  Name: createAppointment
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :
@@ -10,7 +10,7 @@
     void createAppointment();
 
     /***************************************************************************
-    *  Name:
+    *  Name: editAppointment
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :
@@ -18,7 +18,7 @@
     void editAppointment();
 
     /***************************************************************************
-    *  Name:
+    *  Name: deleteAppointment
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :
@@ -26,7 +26,7 @@
     void deleteAppointment();
 
     /***************************************************************************
-    *  Name:
+    *  Name: searchAppointment
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :
@@ -34,15 +34,15 @@
     void searchAppointment();
 
     /***************************************************************************
-    *  Name:
+    *  Name: sortCalendar
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :
     ***************************************************************************/
-    void sortAppointment();
+    void sortCalendar();
 
     /***************************************************************************
-    *  Name:
+    *  Name: listCalendar
     *  Beschreibung:
     *  Parameter:
     *  Ergebnis :

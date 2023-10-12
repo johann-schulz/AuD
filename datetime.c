@@ -17,6 +17,7 @@ int isDateValid(sDate *Date){
     int ansDay = 0;
     int leap = isLeapYear(Date -> Year);
 
+    // Ueberprueft, ob das Jahr gueltig ist
     if(Date -> Year > 0){
         ansYear = 1;
     }
@@ -24,6 +25,7 @@ int isDateValid(sDate *Date){
         ansYear = 0;
     }
 
+    // Ueberprueft, ob der Monat gueltig ist
     if((Date -> Month >= 1)&&(Date -> Month <= 12)){
         ansMonth = 1;
     }
@@ -31,6 +33,7 @@ int isDateValid(sDate *Date){
         ansMonth = 0;
     }
 
+    // Ueberprueft, ob der Tag gueltig ist
     if((Date -> Day >= 1)&&(Date -> Day <= daysPerMonth[Date -> Month - 1])){
         ansDay = 1;
     }
@@ -41,6 +44,7 @@ int isDateValid(sDate *Date){
         ansDay = 0;
     }
 
+    // Nur wenn Jahr, Monat und Tag gueltig sind, wird 1 zurueckgegeben
     if((ansYear == 1) && (ansMonth == 1) && (ansDay == 1)){
         return 1;
     }
