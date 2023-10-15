@@ -40,7 +40,7 @@ int isDateValid(sDate *Date){
     if((Date -> Day >= 1)&&(Date -> Day <= daysPerMonth[Date -> Month - 1])){
         ansDay = 1;
     }
-    else if((Date -> Month == 2)&&(leap == 1)){
+    else if((Date -> Month == 2)&&(leap == 1) && (Date -> Day <=29)){
         ansDay = 1;
     }
     else{
