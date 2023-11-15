@@ -21,8 +21,8 @@ int main()
             case 3: deleteAppointment(); break;
             case 4: searchAppointment(); break;
             case 5: sortCalendar(); break;
-            case 6: listCalendar(); break;
-            case 7: exit(0);
+            case 6: listCalendar(Calendar); break;
+            case 7: freeCalendar(Calendar); exit(0);
         }
     }
 

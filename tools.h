@@ -41,4 +41,6 @@
     ***************************************************************************/
     void printLine(char, int);
 
+    void getText (char *, int, char **, int);
+
 #endif /* tools_h */

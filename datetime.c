@@ -1,7 +1,9 @@
 #include "datetime.h"
 #include "datastructure.h"
+#include "tools.h"
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int isLeapYear(int pYear){
     if((pYear % 4 == 0) && ((pYear % 100 != 0)||(pYear % 400 == 0))){
@@ -84,7 +86,6 @@ int getDateFromString(char str[], sDate *Date){
         input++;
     }
 
-
     int Day = atoi(day);
     int Month = atoi(month);
     int Year = atoi(year);
@@ -95,6 +96,153 @@ int getDateFromString(char str[], sDate *Date){
 
     int ans = isDateValid(Date);
 
+    if (ans == 1) {
+        int d = Date->Day;
+        int m = (Date->Month < 3) ? Date->Month + 12 : Date->Month;
+        int y = (Date->Month > 3) ? Date->Year - 1 : Date->Year;
+
+        int h = (d + 2*m + 3*(m+1)/5 + y + y/4 - y/100 + y/400) % 7;
+
+        Date->DayOfWeek = h + 1;
+    }
 
     return ans;
+}
+
+void getTimeFromString(char str[], sTime *time){
+
+    char hour[10];
+    char minute[10];
+    char second[10] = "0";
+
+    char *input = str;
+    char *pHour = hour;
+    char *pMinute = minute;
+    char *pSecond = second;
+
+    while((*input) && (*input != ':')){
+        *pHour = *input;
+        pHour++;
+        input++;
+    }
+    *pHour = '\0';
+    input++;
+
+    while((*input) && (*input != ':')){
+        *pMinute = *input;
+        pMinute++;
+        input++;
+    }
+    *pMinute = '\0';
+    input++;
+
+    while(*input){
+        *pSecond = *input;
+        pSecond++;
+        input++;
+    }
+
+    int Hour = atoi(hour);
+    int Minute = atoi(minute);
+    int Second = atoi(second);
+
+    time -> Hour = Hour;
+    time -> Minute = Minute;
+    time -> Second = Second;
+}
+
+void getDate(char *promptMessage, sDate *datePtr){
+    char input[20];
+
+    printf("%s", promptMessage);
+    do{
+    scanf("%[^\n]", input);
+    clearBuffer();
+    getDateFromString(input, datePtr);
+    if(!getDateFromString(input, datePtr)){
+        printf("Kein gültiges Datum. Neuer Versuch!\n");
+    }
+    } while(!getDateFromString(input, datePtr));
+}
+
+void getTime(char *promptMessage, sTime **timePtr) {
+    char input[20];
+    sTime tempTime;
+
+    printf("%s", promptMessage);
+    scanf("%[^\n]", input);
+    clearBuffer();
+
+    if (input[0] == '\0') {
+        *timePtr = NULL;
+    }
+    else {
+        getTimeFromString(input, &tempTime);
+
+        *timePtr = (sTime *) malloc(sizeof(sTime));
+        if (*timePtr == NULL) {
+            printf("Speicher konnte nicht reserviert werden.");
+            exit(1);
+        }
+        **timePtr = tempTime;
+    }
+}
+
+void printDate(sDate date){
+    printf("%02d.%02d.%04d\n", date.Day, date.Month, date.Year);
+}
+
+void printTime(sTime time){
+    printf("%02d:%02d", time.Hour, time.Minute);
+}
+
+void printAppointment(sAppointment *appointment){
+    printTime(appointment->Time);
+    printf(" -> ");
+
+    if (appointment->Location != NULL){
+        printf("%s      | ", appointment->Location);
+    }
+
+    if(strlen(appointment->Description) > 48){
+        char desc[45];
+        strncpy(desc, appointment->Description, 44);
+        desc[44] = '\0';
+        printf("%s ...\n", desc);
+    }
+    else{
+        printf("%s\n", appointment->Description);
+    }
+}
+
+char* dayOfWeekToString(eDayOfTheWeek dayOfWeek) {
+    switch (dayOfWeek) {
+        case Mo:
+            return "Mo";
+        case Tu:
+            return "Di";
+        case We:
+            return "Mi";
+        case Th:
+            return "Do";
+        case Fr:
+            return "Fr";
+        case Sa:
+            return "Sa";
+        case Su:
+            return "So";
+        default:
+            return "Uk";
+    }
+}
+
+int isSameDate(sDate currentDate, sDate calendarDate){
+    if(currentDate.Day == calendarDate.Day &&
+       currentDate.Month == calendarDate.Month &&
+       currentDate.Year == calendarDate.Year){
+        return 1;
+    }
+    else{
+        return 0;
+    }
 }

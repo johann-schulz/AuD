@@ -26,4 +26,38 @@
     ***************************************************************************/
     int getDateFromString(char[], sDate*);
 
+    /***************************************************************************
+    *  getTimeFromString
+    *  liest vom Benutzer eingegebenen String ein und mach den Datentyp sTime draus
+    *  Parameter: - char[]: input, sTime* pointer auf die noch leere Zeit
+    ***************************************************************************/
+    void getTimeFromString(char[], sTime*);
+
+    /***************************************************************************
+    *  Name: getDate
+    *  Beschreibung:
+    *  Parameter:
+    *  Ergebnis :
+    ***************************************************************************/
+    void getDate(char *, sDate *);
+
+    /***************************************************************************
+    *  Name: getTime
+    *  Beschreibung:
+    *  Parameter:
+    *  Ergebnis :
+    ***************************************************************************/
+
+    void getTime(char *, sTime **);
+
+    void printDate(sDate);
+
+    void printTime(sTime);
+
+    void printAppointment(sAppointment*);
+
+    char* dayOfWeekToString(eDayOfTheWeek);
+
+    int isSameDate(sDate, sDate);
+
 #endif /* datetime_h */

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "tools.h"
 
 void clearBuffer(){
@@ -48,4 +49,35 @@ void printLine(char c, int count){
         printf("%c", c);
     printf("\n");
 }
+
+void getText(char *promptMessage, int max, char **pAppointment, int isAllowed){
+    char *temp;
+    temp = malloc(max + 1);
+
+    if (temp == NULL){
+        printf("Der Speicher konnte nicht reserviert werden.\n");
+        exit(1);
+    }
+
+    printf("%s", promptMessage);
+    fgets(temp, max + 1, stdin);
+    temp[strcspn(temp, "\n")] = '\0';
+
+    if(!isAllowed && strlen(temp) == 0){
+        printf("Eingabe darf nicht leer sein.\n");
+        free(temp);
+        return;
+    }
+
+    *pAppointment = malloc(strlen(temp) + 1);
+    if(*pAppointment == NULL){
+        printf("Der Speicher konnte nicht reserviert werden. \n");
+        free(temp);
+        exit(1);
+    }
+
+    strcpy(*pAppointment, temp);
+    free(temp);
+}
+
 

@@ -1,5 +1,6 @@
 #ifndef calendar_h
 #define calendar_h
+    #include "datastructure.h"
 
     /***************************************************************************
     *  Name: createAppointment
@@ -7,7 +8,7 @@
     *  Parameter:
     *  Ergebnis :
     ***************************************************************************/
-    void createAppointment();
+    sAppointment* createAppointment();
 
     /***************************************************************************
     *  Name: editAppointment
@@ -47,7 +48,10 @@
     *  Parameter:
     *  Ergebnis :
     ***************************************************************************/
-    void listCalendar();
+    void listCalendar(sAppointment *);
 
+    void freeAppointment(sAppointment*);
+
+    void freeCalendar(sAppointment*);
 
 #endif /* calendar_h */
