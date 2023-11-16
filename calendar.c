@@ -27,7 +27,12 @@ sAppointment* createAppointment() {
 
     sAppointment *appointment = &Calendar[countAppointments];
     getDate("Datum          : \n", &appointment->Date);
-    getTime("Uhrzeit        : \n", &tempTime);
+    do{
+        getTime("Uhrzeit        : \n", &tempTime);
+        if (tempTime == NULL){
+            printf("Eine Uhrzeit muss eingegeben werden!\n");
+        }
+    } while(tempTime == NULL);
     getTime("Dauer          : \n", &tempDuration);
     getText("Beschreibung   : \n", 100, &tempDescription, 0);
     getText("Ort            : \n", 15, &tempLocation, 1);

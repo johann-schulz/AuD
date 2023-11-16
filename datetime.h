@@ -31,7 +31,7 @@
     *  liest vom Benutzer eingegebenen String ein und mach den Datentyp sTime draus
     *  Parameter: - char[]: input, sTime* pointer auf die noch leere Zeit
     ***************************************************************************/
-    void getTimeFromString(char[], sTime*);
+    int getTimeFromString(char[], sTime*);
 
     /***************************************************************************
     *  Name: getDate

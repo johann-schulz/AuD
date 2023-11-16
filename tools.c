@@ -60,14 +60,15 @@ void getText(char *promptMessage, int max, char **pAppointment, int isAllowed){
     }
 
     printf("%s", promptMessage);
-    fgets(temp, max + 1, stdin);
-    temp[strcspn(temp, "\n")] = '\0';
 
-    if(!isAllowed && strlen(temp) == 0){
-        printf("Eingabe darf nicht leer sein.\n");
-        free(temp);
-        return;
-    }
+    do{
+        fgets(temp, max + 1, stdin);
+        temp[strcspn(temp, "\n")] = '\0';
+
+        if(!isAllowed && strlen(temp) == 0){
+            printf("Eingabe darf nicht leer sein.\n");
+        }
+    }while(!isAllowed && strlen(temp) == 0);
 
     *pAppointment = malloc(strlen(temp) + 1);
     if(*pAppointment == NULL){
