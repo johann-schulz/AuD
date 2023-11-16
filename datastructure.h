@@ -34,25 +34,6 @@ typedef struct {
     sTime* Duration;
 } sAppointment;
 
-#define MAXARTICLES 20
-typedef struct{
-    char *Description;
-    double Amount;
-    double NetPricePerUnit;
-    enum KindOfTaxes {NoTax, HalfTax, FullTax} Tax;
-}sArticle;
-
-typedef struct{
-    char *Customer;
-    sDate Date;
-    int ArticleCounter;
-    sArticle Article[MAXARTICLES];
-    double SumNetPrice;
-    double SumTax;
-    double SumGrossPrice;
-
-}sInvoice;
-
 extern int countAppointments;
 extern sAppointment Calendar[MAXAPPOINTMENTS];
 

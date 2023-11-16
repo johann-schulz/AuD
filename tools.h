@@ -34,13 +34,19 @@
     int askYesOrNo(char *);
 
     /***************************************************************************
-    *  askYesOrNo
-    *  Fragt ab, ob yes oder no, validiert Benutzereingabe
-    *  Parameter: *Question: Text, der gefragt werden soll
-    *  Ergebnis : Gibt ja: 1 oder nein: 0 zurueck
+    *  printLine
+    *
+    *  Parameter:
+    *  Ergebnis :
     ***************************************************************************/
     void printLine(char, int);
 
+    /***************************************************************************
+    *  getText
+    *
+    *  Parameter:
+    *  Ergebnis :
+    ***************************************************************************/
     void getText (char *, int, char **, int);
 
 #endif /* tools_h */
