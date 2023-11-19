@@ -45,10 +45,10 @@
     *  getText
     *  get text from user
     *  Parameter: as for text with char* message with the maximum length of int max
-    *  to be written into a **pAppointment with the option to set isAllowed to 1
+    *  to be written into **Pointer with the option to set AllowEmpty to 1
     *  which makes it possible to skip the input
-    *  Ergebnis :
+    *  Ergebnis : true or false (success or fail)
     ***************************************************************************/
-    void getText (char *, int, char **, int);
+    int getText (char *, unsigned , char **, int);
 
 #endif /* tools_h */

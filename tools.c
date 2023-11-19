@@ -50,35 +50,45 @@ void printLine(char c, int count){
     printf("\n");
 }
 
-void getText(char *promptMessage, int max, char **pAppointment, int isAllowed){
-    char *temp;
-    temp = malloc(max + 1);
 
-    if (temp == NULL){
-        printf("Der Speicher konnte nicht reserviert werden.\n");
-        exit(1);
-    }
+int getText(char*promptMessage, unsigned max, char **Pointer, int AllowEmpty){
+    char*Input;
+    char Format[20];
+    unsigned Len=0;
+    int ok = 0;
 
-    printf("%s", promptMessage);
+    if ((Pointer==NULL) || (max == 0))
+        return 0;
+    *Pointer=NULL;
 
-    do{
-        fgets(temp, max + 1, stdin);
-        temp[strcspn(temp, "\n")] = '\0';
-
-        if(!isAllowed && strlen(temp) == 0){
-            printf("Eingabe darf nicht leer sein.\n");
-        }
-    }while(!isAllowed && strlen(temp) == 0);
-
-    *pAppointment = malloc(strlen(temp) + 1);
-    if(*pAppointment == NULL){
-        printf("Der Speicher konnte nicht reserviert werden. \n");
-        free(temp);
-        exit(1);
-    }
-
-    strcpy(*pAppointment, temp);
-    free(temp);
+    Input=malloc(max + 1);
+    if (Input){
+        sprintf(Format, "%%%i[^\n]", max);
+        do {
+            printf("%s", promptMessage);
+            *Input='\0';
+            scanf(Format, Input);
+            clearBuffer();
+            Len= strlen(Input);
+            if(Len>0){
+                *Pointer= malloc(Len+1);
+                if(*Pointer){
+                    strncpy(*Pointer, Input, Len+1);
+                    ok=1;
+                }
+            }else if(AllowEmpty){
+                ok=1;
+            }else{
+                printf("Eingabe darf nicht leer sein!");
+            }
+        }while(ok!=1);
+        free(Input);
+        return 1;
+    } else
+        return 0;
 }
+
+
+
 
 

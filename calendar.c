@@ -21,21 +21,17 @@ sAppointment* createAppointment() {
         return NULL;
     }
 
+    clearScreen();
     printf("Erfassung eines neuen Termins\n");
     printLine('=', 30);
     printf("\n");
 
     sAppointment *appointment = &Calendar[countAppointments];
-    getDate("Datum          : \n", &appointment->Date);
-    do{
-        getTime("Uhrzeit        : \n", &tempTime);
-        if (tempTime == NULL){
-            printf("Eine Uhrzeit muss eingegeben werden!\n");
-        }
-    } while(tempTime == NULL);
-    getTime("Dauer          : \n", &tempDuration);
-    getText("Beschreibung   : \n", 100, &tempDescription, 0);
-    getText("Ort            : \n", 15, &tempLocation, 1);
+    getDate("Datum          : ", &appointment->Date);
+    getTime("Uhrzeit        : ", &tempTime);
+    getTime("Dauer          : ", &tempDuration);
+    getText("Beschreibung   : ", 100, &tempDescription, 0);
+    getText("Ort            : ", 15, &tempLocation, 1);
 
     appointment->Time = *tempTime;
     appointment->Duration = tempDuration;
@@ -44,7 +40,7 @@ sAppointment* createAppointment() {
 
     free(tempTime);
 
-    printf("Termin wurde erfolgreich gespeichert!\n");
+    printf("\nTermin wurde erfolgreich gespeichert!\n");
     waitForEnter();
 
     countAppointments++;
@@ -73,6 +69,8 @@ void sortCalendar() {
 
 void listCalendar(sAppointment calendar[]) {
     sDate currentDate = {0, 0, 0};
+
+    clearScreen();
     printf("Liste der Termine\n");
     printLine('=', 17);
 

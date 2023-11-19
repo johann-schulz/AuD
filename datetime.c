@@ -161,13 +161,13 @@ int getTimeFromString(char str[], sTime *time){
 void getDate(char *promptMessage, sDate *datePtr){
     char input[20];
 
-    printf("%s", promptMessage);
     do{
-    scanf("%[^\n]", input);
-    clearBuffer();
-    getDateFromString(input, datePtr);
-    if(!getDateFromString(input, datePtr)){
-        printf("Kein gültiges Datum. Neuer Versuch!\n");
+        printf("%s", promptMessage);
+        scanf("%[^\n]", input);
+        clearBuffer();
+        getDateFromString(input, datePtr);
+        if(!getDateFromString(input, datePtr)){
+            printf("Kein gueltiges Datum. Neuer Versuch!\n");
     }
     } while(!getDateFromString(input, datePtr));
 }
@@ -177,8 +177,8 @@ void getTime(char *promptMessage, sTime **timePtr) {
     sTime tempTime;
     int result = 0;
 
-    printf("%s", promptMessage);
     do {
+        printf("%s", promptMessage);
         fgets(input, sizeof(input), stdin);
 
         if(input[0] == '\n'){
@@ -189,7 +189,7 @@ void getTime(char *promptMessage, sTime **timePtr) {
         result = getTimeFromString(input, &tempTime);
 
         if(result == 0) {
-            printf("Keine gültige Zeit. Neuer Versuch!\n");
+            printf("Keine gueltige Zeit. Neuer Versuch!\n");
         }
     } while(result == 0);
 
