@@ -35,29 +35,60 @@
 
     /***************************************************************************
     *  Name: getDate
-    *  Beschreibung:
-    *  Parameter:
-    *  Ergebnis :
+    *  Beschreibung: asks message and expects properly formatted and valid date
+    *  Parameter: char * message, sDate to write into
+    *  Ergebnis : -
     ***************************************************************************/
     void getDate(char *, sDate *);
 
     /***************************************************************************
     *  Name: getTime
-    *  Beschreibung:
-    *  Parameter:
-    *  Ergebnis :
+    *  Beschreibung: asks message and expects properly formatted and valid time
+    *  Parameter: char * message, sDate to write into
+    *  Ergebnis : -
     ***************************************************************************/
-
     void getTime(char *, sTime **);
 
+    /***************************************************************************
+    *  Name: printDate
+    *  Beschreibung:used as a workaround to using a lot of format flags when printing a date
+    *  Parameter: the Date to be displayed
+    *  Ergebnis : -
+    ***************************************************************************/
     void printDate(sDate);
 
+    /***************************************************************************
+    *  Name: printTime
+    *  Beschreibung: used as a workaround to using a lot of format flags when printing a time
+    *  Parameter: the Time to be displayed
+    *  Ergebnis : -
+    ***************************************************************************/
     void printTime(sTime);
 
+    /***************************************************************************
+    *  Name: printAppointment
+    *  Beschreibung: prints Time, Location if it exists and Description cut after 44 characters
+    *  if string is longer than 48 chars
+    *  Parameter: sAppointment containing data to be displayed
+    *  Ergebnis : -
+    ***************************************************************************/
     void printAppointment(sAppointment*);
 
+    /***************************************************************************
+    *  Name: dayOfWeekToString
+    *  Beschreibung: returns string with short form for Day of the week depending on the enums value.
+    *  Purpose is to convert english code to german expression.
+    *  Parameter: enum with value
+    *  Ergebnis : char* with Mo/ Di/ Mi etc.
+    ***************************************************************************/
     char* dayOfWeekToString(eDayOfTheWeek);
 
+    /***************************************************************************
+    *  Name: isSameDate
+    *  Beschreibung: Checks if Day, Month and Year of two sDate are the same, returns 1 if yes
+    *  Parameter: two sDate to be compared
+    *  Ergebnis : false or true
+    ***************************************************************************/
     int isSameDate(sDate, sDate);
 
 #endif /* datetime_h */

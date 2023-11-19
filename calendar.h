@@ -4,9 +4,9 @@
 
     /***************************************************************************
     *  Name: createAppointment
-    *  Beschreibung:
-    *  Parameter:
-    *  Ergebnis :
+    *  Beschreibung: Frame for creating a new Appointment
+    *  Parameter: -
+    *  Ergebnis : the created appointment
     ***************************************************************************/
     sAppointment* createAppointment();
 
@@ -14,7 +14,7 @@
     *  Name: editAppointment
     *  Beschreibung:
     *  Parameter:
-    *  Ergebnis :
+    *  Ergebnis : -
     ***************************************************************************/
     void editAppointment();
 
@@ -22,7 +22,7 @@
     *  Name: deleteAppointment
     *  Beschreibung:
     *  Parameter:
-    *  Ergebnis :
+    *  Ergebnis : -
     ***************************************************************************/
     void deleteAppointment();
 
@@ -30,7 +30,7 @@
     *  Name: searchAppointment
     *  Beschreibung:
     *  Parameter:
-    *  Ergebnis :
+    *  Ergebnis : -
     ***************************************************************************/
     void searchAppointment();
 
@@ -38,20 +38,32 @@
     *  Name: sortCalendar
     *  Beschreibung:
     *  Parameter:
-    *  Ergebnis :
+    *  Ergebnis : -
     ***************************************************************************/
     void sortCalendar();
 
     /***************************************************************************
     *  Name: listCalendar
-    *  Beschreibung:
-    *  Parameter:
-    *  Ergebnis :
+    *  Beschreibung: lists all Appointments in calendar
+    *  Parameter: the calendar
+    *  Ergebnis : -
     ***************************************************************************/
-    void listCalendar(sAppointment *);
+    void listCalendar(sAppointment*);
 
+    /***************************************************************************
+    *  Name: freeAppointment
+    *  Beschreibung: deletes all values form provided appointment
+    *  Parameter: sAppointment to be cleared
+    *  Ergebnis : -
+    ***************************************************************************/
     void freeAppointment(sAppointment*);
 
+    /***************************************************************************
+    *  Name: freeCalendar
+    *  Beschreibung: deletes all appointments from calendar
+    *  Parameter: calendar to be cleared out
+    *  Ergebnis : -
+    ***************************************************************************/
     void freeCalendar(sAppointment*);
 
 #endif /* calendar_h */

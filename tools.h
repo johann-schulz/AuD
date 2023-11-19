@@ -35,16 +35,18 @@
 
     /***************************************************************************
     *  printLine
-    *
+    *  prints char int times in one line, ends with \n
     *  Parameter:
-    *  Ergebnis :
+    *  Ergebnis : -
     ***************************************************************************/
     void printLine(char, int);
 
     /***************************************************************************
     *  getText
-    *
-    *  Parameter:
+    *  get text from user
+    *  Parameter: as for text with char* message with the maximum length of int max
+    *  to be written into a **pAppointment with the option to set isAllowed to 1
+    *  which makes it possible to skip the input
     *  Ergebnis :
     ***************************************************************************/
     void getText (char *, int, char **, int);
