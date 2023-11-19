@@ -110,8 +110,9 @@ int getDateFromString(char str[], sDate *Date){
 }
 
 int getTimeFromString(char str[], sTime *time){
-    if(str[0] == '\n'){
-        return 1;
+    // strlen: xx:xx:xx sind 8 Zeichen
+    if(str[0] == '\n' || str[0] == '\0' || strlen(str) > 8){
+        return 0;
     }
 
     char hour[10];
@@ -145,17 +146,58 @@ int getTimeFromString(char str[], sTime *time){
         input++;
     }
 
-    int Hour = atoi(hour);
-    int Minute = atoi(minute);
-    int Second = atoi(second);
+    char *end;
+    int Hour = strtol(hour, &end, 10);
+    if (end == hour || *end != '\0' || errno == ERANGE){
+        return 0;
+    }
+    int Minute = strtol(minute, &end, 10);
+    if (end == minute || *end != '\0' || errno == ERANGE){
+        return 0;
+    }
+    int Second = strtol(second, &end, 10);
+    if (end == second || *end != '\0' || errno == ERANGE){
+        return 0;
+    }
 
-    time -> Hour = Hour;
-    time -> Minute = Minute;
-    time -> Second = Second;
-
-    return (Hour >= 0 && Hour < 24) &&
+    if ((Hour >= 0 && Hour <= 24) &&
            (Minute >= 0 && Minute < 60) &&
-           (Second >= 0 && Second < 60);
+           (Second >= 0 && Second < 60))
+    {
+        time -> Hour = Hour;
+        time -> Minute = Minute;
+        time -> Second = Second;
+        return 1;
+    }
+    return 0;
+}
+
+void getTime(char *promptMessage, sTime **timePtr) {
+    char input[20];
+    sTime tempTime;
+    int result = 0;
+
+    do {
+        printf("%s", promptMessage);
+        scanf("%[^\n]", input);
+        clearBuffer();
+        if(input[0] == '\n'){
+            *timePtr = NULL;
+            return;
+        }
+        result = getTimeFromString(input, &tempTime);
+
+        if(result == 0) {
+            printf("Keine gueltige Zeit. Neuer Versuch!\n");
+        }
+    } while(result == 0);
+
+    *timePtr = (sTime *) malloc(sizeof(sTime));
+    if (*timePtr == NULL) {
+        printf("Speicher konnte nicht reserviert werden.");
+        exit(1);
+    }
+    **timePtr = tempTime;
 }
 
 void getDate(char *promptMessage, sDate *datePtr){
@@ -172,38 +214,6 @@ void getDate(char *promptMessage, sDate *datePtr){
     } while(!getDateFromString(input, datePtr));
 }
 
-void getTime(char *promptMessage, sTime **timePtr) {
-    char input[20];
-    sTime tempTime;
-    int result = 0;
-
-    do {
-        printf("%s", promptMessage);
-        fgets(input, sizeof(input), stdin);
-
-        if(input[0] == '\n'){
-            *timePtr = NULL;
-            return;
-        }
-
-        result = getTimeFromString(input, &tempTime);
-
-        if(result == 0) {
-            printf("Keine gueltige Zeit. Neuer Versuch!\n");
-        }
-    } while(result == 0);
-
-    *timePtr = (sTime *) malloc(sizeof(sTime));
-    if (*timePtr == NULL) {
-        printf("Speicher konnte nicht reserviert werden.");
-        exit(1);
-    }
-    **timePtr = tempTime;
-}
-
-
-
-
 void printDate(sDate date){
     printf("%02d.%02d.%04d\n", date.Day, date.Month, date.Year);
 }
@@ -217,8 +227,9 @@ void printAppointment(sAppointment *appointment){
     printf(" -> ");
 
     if (appointment->Location != NULL){
-        printf("%s      | ", appointment->Location);
-    }
+        printf("%-20s| ", appointment->Location);
+    }else
+        printf("                    | ");
 
     if(strlen(appointment->Description) > 48){
         char desc[45];
