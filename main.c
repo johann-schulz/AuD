@@ -5,14 +5,15 @@
 #include "tools.h"
 #include "calendar.h"
 #include "menu.h"
+#include "database.h"
 
 void inputDate();
 
 int main()
 {
     char menuTitle[] = "Terminverwaltung V 0.2";
-    char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden"};
-
+    char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden",};
+    loadCalendar(Calendar);
     while (1){
 
         switch (getMenu(menuTitle, menuItems, 7)){

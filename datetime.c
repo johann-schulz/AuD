@@ -4,6 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <errno.h>
+
 
 int isLeapYear(int pYear){
     if((pYear % 4 == 0) && ((pYear % 100 != 0)||(pYear % 400 == 0))){
@@ -139,6 +141,9 @@ int getTimeFromString(char str[], sTime *time){
     }
     *pMinute = '\0';
     input++;
+
+    if(*input)
+        input++;
 
     while(*input){
         *pSecond = *input;

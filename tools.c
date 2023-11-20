@@ -87,8 +87,3 @@ int getText(char*promptMessage, unsigned max, char **Pointer, int AllowEmpty){
     } else
         return 0;
 }
-
-
-
-
-
