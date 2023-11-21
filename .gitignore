@@ -1,4 +1,5 @@
 *.o
 *.exe
-.idea/
 *.xml
+calendar.xml
+.idea/

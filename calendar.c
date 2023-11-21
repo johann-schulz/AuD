@@ -67,7 +67,7 @@ void sortCalendar() {
     waitForEnter();
 }
 
-void listCalendar(sAppointment calendar[]) {
+void listCalendar(sAppointment *calendar) {
     sDate currentDate = {0, 0, 0};
 
     clearScreen();

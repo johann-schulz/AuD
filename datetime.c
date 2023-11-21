@@ -227,25 +227,30 @@ void printTime(sTime time){
     printf("%02d:%02d", time.Hour, time.Minute);
 }
 
-void printAppointment(sAppointment *appointment){
+void printAppointment(sAppointment* appointment) {
     printTime(appointment->Time);
     printf(" -> ");
 
-    if (appointment->Location != NULL){
+    if (appointment->Location != NULL) {
         printf("%-20s| ", appointment->Location);
-    }else
+    } else {
         printf("                    | ");
-
-    if(strlen(appointment->Description) > 48){
-        char desc[45];
-        strncpy(desc, appointment->Description, 44);
-        desc[44] = '\0';
-        printf("%s ...\n", desc);
     }
-    else{
-        printf("%s\n", appointment->Description);
+
+    if (appointment->Description != NULL) {
+        if (strlen(appointment->Description) > 48) {
+            char desc[45];
+            strncpy(desc, appointment->Description, 44);
+            desc[44] = '\0';
+            printf("%s ...\n", desc);
+        } else {
+            printf("%s\n", appointment->Description);
+        }
+    } else {
+        printf("No description available\n");
     }
 }
+
 
 char* dayOfWeekToString(eDayOfTheWeek dayOfWeek) {
     switch (dayOfWeek) {
