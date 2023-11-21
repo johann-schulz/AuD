@@ -8,14 +8,16 @@
 #include "database.h"
 
 void inputDate();
+void endProgramm();
 
 int main()
 {
     char menuTitle[] = "Terminverwaltung V 0.2";
     char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden",};
+    countAppointments=0;
     loadCalendar(Calendar);
-    while (1){
 
+    while("Für Fortnite"){
         switch (getMenu(menuTitle, menuItems, 7)){
             case 1: createAppointment(); break;
             case 2: editAppointment(); break;
@@ -23,19 +25,29 @@ int main()
             case 4: searchAppointment(); break;
             case 5: sortCalendar(); break;
             case 6: listCalendar(Calendar); break;
-            case 7: freeCalendar(Calendar); exit(0);
+            case 7: endProgramm();
         }
     }
-
-    // Code from ueb_1 which is at least now not required if i understood everything right
-//    do
-//    {
-//        clearScreen();
-//        inputDate();
-//    } while (askYesOrNo("Moechten Sie noch einmal (j/n) ? "));
-//
-//    return 0;
 }
+
+/********************************************************************
+ * Funktion endProgramm
+ * Includes everything necessary to exit the calendar safely:
+ *      - asks if changes should be safed, safes them if yes
+ *      - cleans buffer for calendar content
+ *      - informs the user about whats going on
+ * Paramater: keine
+ * Funktionsergebnis: nichts
+ *******************************************************************/
+void endProgramm(){
+    if (askYesOrNo("Sollen die Aenderungen am Kalender gespeichert werden? [j/n]"))
+        saveCalendar(Calendar);
+    printf("Beende...\n");
+    freeCalendar(Calendar);
+    printf("Fertig!\n");
+    exit(0);
+}
+
 
 /********************************************************************
  * Funktion void inputDate(void)

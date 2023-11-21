@@ -17,7 +17,7 @@
     *  Parameter:
     *  Ergebnis : -
     ***************************************************************************/
-    int saveCalendar();
+    int saveCalendar(sAppointment *);
 
     /***************************************************************************
     *  Name: saveAppointment
@@ -25,6 +25,6 @@
     *  Parameter:
     *  Ergebnis : -
     ***************************************************************************/
-    int saveAppointment();
+    int saveAppointment(sAppointment *, FILE*);
 
 #endif //DATABASE_H

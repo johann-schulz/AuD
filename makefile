@@ -1,31 +1,17 @@
-cc = gcc -Wall
+cc = gcc
+CFLAGS = -Wall -lm
 OBJ = main.o datetime.o tools.o menu.o calendar.o database.o
 
 main: $(OBJ)
-	$(cc) -o $@ $^ -lm
+	$(cc) -o $@ $^ $(CFLAGS)
 
-main.o: main.c datetime.h datastructure.h tools.h menu.h calendar.h database.h
-	$(cc) -c $<
-
-datetime.o: datetime.c datetime.h datastructure.h tools.h menu.h calendar.h database.h
-	$(cc) -c $<
-
-tools.o: tools.c tools.h datetime.h datastructure.h menu.h calendar.h database.h
-	$(cc) -c $<
-
-menu.o: menu.c tools.h tools.h datetime.h datastructure.h  calendar.h database.h
-	$(cc) -c $<
-
-calendar.o: calendar.c tools.h tools.h datetime.h datastructure.h menu.h database.h
-	$(cc) -c $<
-
-database.o: database.c tools.h tools.h datetime.h datastructure.h menu.h calendar.h
-	$(cc) -c $<
+%.o: %.c datetime.h datastructure.h tools.h menu.h calendar.h database.h
+	$(cc) -c $< $(CFLAGS)
 
 clean:
-	rm -f main.o main datetime.o tools.o menu.o calendar.o database.o
+	rm -f main $(OBJ)
 
-run:
+run: main
 	./main
 
-all: clean main run
+all: clean run

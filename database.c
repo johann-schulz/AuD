@@ -21,13 +21,19 @@ int loadCalendar(sAppointment *calendar) {
     char* description;
     char* location;
     sTime duration;
-
+    int i =0;
     while (fgets(line, sizeof(line), file) != NULL) {
         char* lineStart;
         lineStart = line;
         while ((*lineStart == ' ' || *lineStart == '\t') && *lineStart != '\0') {
             lineStart++;
         }
+        if ((i==0) && (strncmp(lineStart, "<Calendar>", 10) != 0)){
+            printf("Quelldatei hat kein Format, was ausgewertet werden kann.\n");
+            waitForEnter();
+            return -1;
+        }
+        i++;
 
         if (strncmp(lineStart, "<Appointment>", 13) == 0) {
             localAppointmentCount++;
@@ -121,3 +127,43 @@ int loadCalendar(sAppointment *calendar) {
     return 1;
 }
 
+
+int saveCalendar(sAppointment *calendar){
+    FILE* file = fopen("calendar.xml", "w");
+    if (!file) {
+        perror("Error opening/ creating file");
+        return -1;
+    }
+    // Success if there is nothing to remove
+    if(!calendar)
+        return 1;
+
+    fprintf(file, "<Calendar>\n");
+
+    for(int i = 0; i < countAppointments; i++){
+       saveAppointment(&calendar[i], file);
+    }
+
+    fprintf(file, "</Calendar>");
+    fclose(file);
+    return 1;
+}
+
+
+int saveAppointment(sAppointment *appointment, FILE *file){
+    if (appointment==NULL)
+        return -1;
+
+    fprintf(file, "\t<Appointment>\n");
+    fprintf(file, "\t\t<Date>%02d.%02d.%04d</Date>\n", appointment->Date.Day, appointment->Date.Month, appointment->Date.Year);
+    fprintf(file, "\t\t<Time>%02d:%02d:%02d</Time>\n", appointment->Time.Hour, appointment->Time.Minute, appointment->Time.Second);
+    if (appointment->Description!=NULL)
+        fprintf(file, "\t\t<Description>%s</Description>\n",appointment->Description);
+    if (appointment->Location!=NULL)
+        fprintf(file, "\t\t<Location>%s</Location>\n",appointment->Location);
+    if (appointment->Duration!=NULL)
+        fprintf(file, "\t\t<Duration>%02d:%02d</Duration>\n", appointment->Duration->Hour, appointment->Duration->Minute);
+    fprintf(file, "\t</Appointment>\n");
+
+    return 1;
+}
