@@ -55,8 +55,9 @@ int loadCalendar(sAppointment *calendar) {
             unsigned len = strlen(lineStart + 6) - 7;
             if (strncmp(lineStart + 5 + len, "</Date>", 7) == 0) {
                 char* tmp = malloc(sizeof(char) * len);
-                if (!tmp)
+                if (!tmp) {
                     return -1;
+                }
                 strncpy(tmp, lineStart + 6, len-1);
                 tmp[len-1] = '\0';
                 getDateFromString(tmp, &date);
