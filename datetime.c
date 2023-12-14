@@ -140,10 +140,10 @@ int getTimeFromString(char str[], sTime *time){
         input++;
     }
     *pMinute = '\0';
-    input++;
 
     if(*input)
         input++;
+
 
     while(*input){
         *pSecond = *input;
@@ -165,7 +165,7 @@ int getTimeFromString(char str[], sTime *time){
         return 0;
     }
 
-    if ((Hour >= 0 && Hour <= 24) &&
+    if ((Hour >= 0 && Hour < 24) &&
            (Minute >= 0 && Minute < 60) &&
            (Second >= 0 && Second < 60))
     {
@@ -180,7 +180,7 @@ int getTimeFromString(char str[], sTime *time){
 void getTime(char *promptMessage, sTime **timePtr) {
     char input[20];
     sTime tempTime;
-    int result = 0;
+    int result = 0 ;
 
     do {
         printf("%s", promptMessage);

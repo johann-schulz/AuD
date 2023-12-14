@@ -31,6 +31,7 @@ int loadCalendar(sAppointment *calendar) {
         if ((i==0) && (strncmp(lineStart, "<Calendar>", 10) != 0)){
             printf("Quelldatei hat kein Format, was ausgewertet werden kann.\n");
             waitForEnter();
+            fclose(file);
             return -1;
         }
         i++;
@@ -56,6 +57,7 @@ int loadCalendar(sAppointment *calendar) {
             if (strncmp(lineStart + 5 + len, "</Date>", 7) == 0) {
                 char* tmp = malloc(sizeof(char) * len);
                 if (!tmp) {
+                    fclose(file);
                     return -1;
                 }
                 strncpy(tmp, lineStart + 6, len-1);
@@ -68,8 +70,10 @@ int loadCalendar(sAppointment *calendar) {
             unsigned len = strlen(lineStart + 6) - 7;
             if (strncmp(lineStart + 5 + len, "</Time>", 7) == 0) {
                 char* tmp = malloc(sizeof(char) * len);
-                if (!tmp)
+                if (!tmp) {
+                    fclose(file);
                     return -1;
+                }
                 strncpy(tmp, lineStart + 6, len-1);
                 tmp[len-1] = '\0';
                 getTimeFromString(tmp, &time);
@@ -80,8 +84,10 @@ int loadCalendar(sAppointment *calendar) {
             unsigned len = strlen(lineStart + 13) - 14;
             if (strncmp(lineStart + 12 + len, "</Description>", 14) == 0) {
                 description = malloc(sizeof(char) * len);
-                if (!description)
+                if (!description) {
+                    fclose(file);
                     return -1;
+                }
                 strncpy(description, lineStart + 13, len-1);
                 description[len-1] = '\0';
             }
@@ -90,8 +96,10 @@ int loadCalendar(sAppointment *calendar) {
             unsigned len = strlen(lineStart + 10) - 11;
             if (strncmp(lineStart + 9 + len, "</Location>", 11) == 0) {
                 location = malloc(sizeof(char) * len);
-                if (!location)
+                if (!location) {
+                    fclose(file);
                     return -1;
+                }
                 strncpy(location, lineStart + 10, len-1);
                 location[len-1] = '\0';
             }
@@ -100,8 +108,10 @@ int loadCalendar(sAppointment *calendar) {
             unsigned len = strlen(lineStart + 10) - 11;
             if (strncmp(lineStart + 9 + len, "</Duration>", 11) == 0) {
                 char* tmp = malloc(sizeof(char) * len);
-                if (!tmp)
+                if (!tmp) {
+                    fclose(file);
                     return -1;
+                }
                 strncpy(tmp, lineStart + 10, len-1);
                 tmp[len-1] = '\0';
                 getTimeFromString(tmp, &duration);
@@ -112,6 +122,7 @@ int loadCalendar(sAppointment *calendar) {
             if (localAppointmentCount > 0) {
                 if (countAppointments >= MAXAPPOINTMENTS) {
                     printf("Der Speicher ist voll. Es koennen keine weiteren Termine geladen werden\n");
+                    fclose(file);
                     return -1;
                 }
                 // Speichert alle Werte im aktuellen Appointment
@@ -142,7 +153,8 @@ int saveCalendar(sAppointment *calendar){
     fprintf(file, "<Calendar>\n");
 
     for(int i = 0; i < countAppointments; i++){
-       saveAppointment(&calendar[i], file);
+        if (!saveAppointment(&calendar[i], file))
+            break;
     }
 
     fprintf(file, "</Calendar>");
@@ -153,7 +165,7 @@ int saveCalendar(sAppointment *calendar){
 
 int saveAppointment(sAppointment *appointment, FILE *file){
     if (appointment==NULL)
-        return -1;
+        return 0;
 
     fprintf(file, "\t<Appointment>\n");
     fprintf(file, "\t\t<Date>%02d.%02d.%04d</Date>\n", appointment->Date.Day, appointment->Date.Month, appointment->Date.Year);
