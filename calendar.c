@@ -137,6 +137,18 @@ void freeCalendar(sAppointment *calendar){
 }
 
 void SortDateTime(sAppointment *pCalendar){
+    int(*directionFunction) (int *, int *);
+    char *menuItems[] = {"aufsteigend sortieren",
+                         "absteigend sortieren",
+                         "zurueck zum Hauptmenue"};
+    while("Für Fortnite"){
+        switch (getMenu("Sort after Date / Time" , menuItems, 3)){
+            case 1: directionFunction = IncreasingDirection; break;
+            case 2: directionFunction = DecreasingDirection; break;
+            case 3: printf("Mainmenu (missing function please use option 1-4)"); break;
+        }
+        break;
+    }
     sDate  *pDate = &pCalendar->Date;
     //sort after year
     int *YearArray[countAppointments];
@@ -144,12 +156,15 @@ void SortDateTime(sAppointment *pCalendar){
         YearArray[i] = &pDate->Year;
     }
 
-    printf("\narray:\n");
-    for (int i = 0; i < countAppointments; i++) {
-        printf("%d ", *YearArray[i]);
-    }
-    printf("\n");
+    IntQuickSort(*YearArray, countAppointments, directionFunction);
+
+
+//    printf("\narray:\n");
+//    for (int i = 0; i < countAppointments; i++) {
+//        printf("%d ", *YearArray[i]);
+//    }
+//    printf("\n");
 
     //array wird richtig eingefügt
-
+    waitForEnter();
 }

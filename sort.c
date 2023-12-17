@@ -23,20 +23,20 @@ int Partition (int *array, int lowerLimit, int upperLimit, int (*compfunction) (
     return i;
 }
 
-void Qsort(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *)){
+void Qsort(int *array, int lowerLimit, int upperLimit, int (*compFunction) (int *, int *)){
     int newComperator; //das neue Grenzwert/vergleichswert nach der partitionierung
 
     if(lowerLimit >= upperLimit)
         return;
     else{
-        newComperator = Partition(array, lowerLimit, upperLimit, compfunction);
-        Qsort(array, lowerLimit            , newComperator - 1, compfunction);
-        Qsort(array, newComperator + 1, upperLimit, compfunction);
+        newComperator = Partition(array, lowerLimit, upperLimit, compFunction);
+        Qsort(array, lowerLimit            , newComperator - 1, compFunction);
+        Qsort(array, newComperator + 1, upperLimit, compFunction);
     }
 }
 
-void IntQuickSort(int *array, int count, int (*compfunction) (int *, int *)){
-    Qsort(array, 0, count - 1, compfunction );
+void IntQuickSort(int *array, int count, int (*compFunction) (int *, int *)){
+    Qsort(array, 0, count - 1, compFunction );
 }
 
 

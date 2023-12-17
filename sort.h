@@ -7,9 +7,9 @@
 
 int Partition(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *));
 
-void Qsort(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *));
+void Qsort(int *array, int lowerLimit, int upperLimit, int (*compFunction) (int *, int *));
 
-void IntQuickSort(int *array, int count, int (*compfunction) (int *, int *));
+void IntQuickSort(int *array, int count, int (*compFunction) (int *, int *));
 
 void SwapIntPointer(int *pointer1, int *pointer2);
 
