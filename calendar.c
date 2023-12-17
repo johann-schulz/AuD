@@ -4,6 +4,8 @@
 #include "calendar.h"
 #include "tools.h"
 #include "datetime.h"
+#include "menu.h"
+#include "sort.h"
 
 
 int countAppointments = 0;
@@ -62,9 +64,23 @@ void searchAppointment() {
     waitForEnter();
 }
 
-void sortCalendar() {
-    printf("Sort Calendar\n");
-    waitForEnter();
+void sortCalendar(sAppointment *calendar) {
+    char menuTitle[] = "Termine sortieren nach:";
+    char *menuItems[] = {"Datum / Uhrzeit",
+                         "Dauer / Datum / Uhrzeit",
+                         "Bezeichnung / Datum / Uhrzeit",
+                         "Ort / Datum / Uhrzeit",
+                         "zurueck zum Hauptmenue"};
+
+    while("Für Fortnite"){
+        switch (getMenu(menuTitle, menuItems, 5)){
+            case 1: SortDateTime(calendar); break;
+            case 2: editAppointment(); break;
+            case 3: deleteAppointment(); break;
+            case 4: searchAppointment(); break;
+            case 5: printf("Mainmenu (missing function please use option 1-4)"); break;
+        }
+    }
 }
 
 void listCalendar(sAppointment *calendar) {
@@ -120,3 +136,20 @@ void freeCalendar(sAppointment *calendar){
     }
 }
 
+void SortDateTime(sAppointment *pCalendar){
+    sDate  *pDate = &pCalendar->Date;
+    //sort after year
+    int *YearArray[countAppointments];
+    for(int i = 0; i < countAppointments; i++){
+        YearArray[i] = &pDate->Year;
+    }
+
+    printf("\narray:\n");
+    for (int i = 0; i < countAppointments; i++) {
+        printf("%d ", *YearArray[i]);
+    }
+    printf("\n");
+
+    //array wird richtig eingefügt
+
+}

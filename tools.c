@@ -21,8 +21,8 @@ void waitForEnter(){
 void clearScreen(){
     // je nach nutzer einfach das andere auskommentieren
 
-    system("cls"); // windows
-    // system("clear"); // osx
+    //system("cls"); // windows
+    system("clear"); // unix
 }
 
 int askYesOrNo(char *Question){

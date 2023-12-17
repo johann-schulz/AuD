@@ -1,52 +1,54 @@
 #include "sort.h"
 
 //partition englisch für aufteilen
-int partition (int *Array, int lowerLimit, int upperLimit, int (*cmpfct) (int *, int *)) {
-    int *limit = Array + lowerLimit; //limit ist der zu vergleichende grenzwert
+int Partition (int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *)) {
+    int *comperator = array + lowerLimit; //comp ist der zu vergleichende grenzwert
     int i = lowerLimit + 1, j = upperLimit;
 
     while (i <= j) {
         // nachstes Element > *comp von links suchen (im linken Teil)
-        while ((i <= j) && (cmpfct (Array + i, Limit) <= 0))
+        while ((i <= j) && (compfunction (array + i, comperator) <= 0))
             i++;
-        while ((j >= i) && (cmpfct (Array + j, Limit) >= 0))
+        while ((j >= i) && (compfunction (array + j, comperator) >= 0))
             j--;
         if(i < j){
-            swapIntPointer(Array + i, Array + j);
+            SwapIntPointer(array + i, array + j);
             i++;
             j--;
         }
     }
     i--;
-    swapIntPointer(limit, Array + i);
+    SwapIntPointer(comperator, array + i);
 
     return i;
 }
 
-void qsort(int *Array, int lowerLimit, int upperLimit, int (*cmpfct) (int *, int *)){
-    int newLimit; //dsa neue limit nach der partitionierung
+void Qsort(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *)){
+    int newComperator; //das neue Grenzwert/vergleichswert nach der partitionierung
 
     if(lowerLimit >= upperLimit)
         return;
     else{
-        newLimit = partition(Array, lowerLimit, upperLimit, cmpfct);
-        qsort(Array, lowerLimit            , newLimit - 1, cmpfct);
-        qsort(Array, newLimit + 1, upperLimit, cmpfct);
+        newComperator = Partition(array, lowerLimit, upperLimit, compfunction);
+        Qsort(array, lowerLimit            , newComperator - 1, compfunction);
+        Qsort(array, newComperator + 1, upperLimit, compfunction);
     }
 }
 
-void IntQuickSort(int *array, int count, int (*cmpfct) (int *, int *)){
-    qsort(Array, 0, count - 1, cmpfct )
+void IntQuickSort(int *array, int count, int (*compfunction) (int *, int *)){
+    Qsort(array, 0, count - 1, compfunction );
 }
 
 
-void swapIntPointer(int *pointer1, int *pointer2){
+void SwapIntPointer(int *pointer1, int *pointer2){
     int temp;
     temp = *pointer1;
     *pointer1 = *pointer2;
     *pointer2 = temp;
 }
 
+
+// das sind meine CMPFCT(compare function) funktionen
 int IncreasingDirection(int *pointer1, int *pointer2){
     return *pointer1 - *pointer2;
 }
@@ -55,3 +57,15 @@ int DecreasingDirection(int *pointer1, int *pointer2){
     return *pointer2 - *pointer1;
 }
 
+
+
+
+// string comp liefert 0 wenn beide gleich, ist 1. größer bekomme ich positve ist 1. kleiner als 2. beomme ich negative zahl
+// D
+
+// Datum/Uhrzeit                    (nach datum, wenn datum gleich nach Uhrzeit)
+// Dauer/Datum/Uhrzeit              (nach Dauer, wenn gleiche nach Datum, wenn gleiches nach Uhrzeit) (nach dauer und sonst 1. aufrufen)
+// Bezeichnung / Datum / Uhrzeit                                                                      (nach bezeichnung und sonst 1. aufrufen)
+// Ort / Datum / Uhrzeit                                                                              (nach Ort und sonst 1. aufrufen)
+
+// irgendwie noch maxtime hinzufügen

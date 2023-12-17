@@ -2,16 +2,16 @@
 // Created by Timsken on 16/12/2023.
 //
 
-#ifndef AUD_SORT_H
-#define AUD_SORT_H
+#ifndef SORT_H
+#define SORT_H
 
-int partition(int *Array, int lowerLimit, int obereGrenze, int (*cmpfct) (int *, int *));
+int Partition(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *));
 
-void qsort(int *Array, int lowerLimit, int upperLimit, int (*cmpfct) (int *, int *));
+void Qsort(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *));
 
-void IntQuickSort(int *array, int count, int (*cmpfct) (int *, int *));
+void IntQuickSort(int *array, int count, int (*compfunction) (int *, int *));
 
-void swapIntPointer(int *pointer1, int *pointer2);
+void SwapIntPointer(int *pointer1, int *pointer2);
 
 int IncreasingDirection(int *pointer1, int *pointer2);
 

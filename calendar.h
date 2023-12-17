@@ -40,7 +40,7 @@
     *  Parameter:
     *  Ergebnis : -
     ***************************************************************************/
-    void sortCalendar();
+    void sortCalendar(sAppointment *calendar);
 
     /***************************************************************************
     *  Name: listCalendar
@@ -65,5 +65,13 @@
     *  Ergebnis : -
     ***************************************************************************/
     void freeCalendar(sAppointment*);
+
+    /***************************************************************************
+    *  Name: freeCalendar
+    *  Beschreibung: deletes all appointments from calendar
+    *  Parameter: calendar to be cleared out
+    *  Ergebnis : -
+    ***************************************************************************/
+    void SortDateTime(sAppointment *pCalendar);
 
 #endif /* calendar_h */

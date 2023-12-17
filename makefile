@@ -1,11 +1,11 @@
 cc = gcc
 CFLAGS = -Wall -lm
-OBJ = main.o datetime.o tools.o menu.o calendar.o database.o
+OBJ = main.o datetime.o tools.o menu.o calendar.o database.o sort.o
 
 main: $(OBJ)
 	$(cc) -o $@ $^ $(CFLAGS)
 
-%.o: %.c datetime.h datastructure.h tools.h menu.h calendar.h database.h
+%.o: %.c datetime.h datastructure.h tools.h menu.h calendar.h database.h sort.h
 	$(cc) -c $< $(CFLAGS)
 
 clean:
