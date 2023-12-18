@@ -22,7 +22,7 @@ void clearScreen(){
     // je nach nutzer einfach das andere auskommentieren
 
     //system("cls"); // windows
-    system("clear"); // unix
+    //system("clear"); // unix
 }
 
 int askYesOrNo(char *Question){

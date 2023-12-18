@@ -4,17 +4,18 @@
 
 #ifndef SORT_H
 #define SORT_H
+#include "datastructure.h"
+#include "string.h"
 
-int Partition(int *array, int lowerLimit, int upperLimit, int (*compfunction) (int *, int *));
+int partition(sAppointment *pCalendar, int lowerLimit, int upperLimit, char *, char *);
 
-void Qsort(int *array, int lowerLimit, int upperLimit, int (*compFunction) (int *, int *));
+void Qsort(sAppointment *pCalendar, int lowerLimit, int upperLimit, char *, char *);
 
-void IntQuickSort(int *array, int count, int (*compFunction) (int *, int *));
+void appointmentQuickSort(sAppointment *pCalendar, int count, char *, char *);
 
-void SwapIntPointer(int *pointer1, int *pointer2);
+void swapAppointmentPointer(sAppointment *pointer1, sAppointment *pointer2);
 
-int IncreasingDirection(int *pointer1, int *pointer2);
+int cmpfct(sAppointment *pointer1, sAppointment *pointer2, char *sortField, char *Sortdirection);
 
-int DecreasingDirection(int *pointer1, int *pointer2);
 
 #endif //AUD_SORT_H

@@ -72,6 +72,6 @@
     *  Parameter: calendar to be cleared out
     *  Ergebnis : -
     ***************************************************************************/
-    void SortDateTime(sAppointment *pCalendar);
+    void sortDateTime(sAppointment *pCalendar);
 
 #endif /* calendar_h */
