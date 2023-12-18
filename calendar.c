@@ -138,18 +138,17 @@ void freeCalendar(sAppointment *calendar){
 
 void sortDateTime(sAppointment *pCalendar){
     int(*directionFunction) (sAppointment *, sAppointment *);
-    char *menuItems[] = {"jahre",
-                         "monate",
+    char *menuItems[] = {"Aufsteigend sortieren",
+                         "Absteigend sortieren",
                          "zurueck zum Hauptmenue"};
     while("Für Fortnite"){
         switch (getMenu("Sort after Date / Time" , menuItems, 3)){
-            case 1: directionFunction = compareDays; break;
-            case 2: directionFunction = compareMonths; break;
+            case 1: directionFunction = compareDateAndTimeIncreasing; break;
+            case 2: directionFunction = compareDateAndTimeDecreasing; break;
             case 3: return;
         }
         break;
     }
-
 
 
     quickSort(pCalendar, countAppointments, directionFunction);
