@@ -137,33 +137,30 @@ void freeCalendar(sAppointment *calendar){
 }
 
 void sortDateTime(sAppointment *pCalendar){
-    int true=1;
-    char *sortField = malloc(12);
-    char *sortDirection = malloc(11);
-    if (sortDirection == NULL || sortField == NULL ) {
-        fprintf(stderr, "Memory allocation failed.\n");
-        //add Exit with an error code
-    }
-    char *menuItems[] = {"aufsteigend sortieren", "absteigend sortieren", "Doch nichts sortieren"};
-    while(true){
+    int(*directionFunction) (sAppointment *, sAppointment *);
+    char *menuItems[] = {"jahre",
+                         "monate",
+                         "zurueck zum Hauptmenue"};
+    while("Für Fortnite"){
         switch (getMenu("Sort after Date / Time" , menuItems, 3)){
-            case 1: strcpy(sortDirection, "increasing");true=0; break;
-            case 2: strcpy(sortDirection, "decreasing");true=0; break;
+            case 1: directionFunction = compareDays; break;
+            case 2: directionFunction = compareMonths; break;
             case 3: return;
         }
+        break;
     }
 
-    strncpy(sortField, "yearsssssss",12);// umaendern, wenn year nicht ausreicht
-    appointmentQuickSort(pCalendar, countAppointments, sortField, sortDirection);
-    printf("\nArray elements: ");
+
+
+    quickSort(pCalendar, countAppointments, directionFunction);
+
+
+    printf("\narray:\n");
     for (int i = 0; i < countAppointments; i++) {
         printf("%d ", pCalendar[i].Date.Year);
     }
+    printf("\n");
 
-
-
-    //waitForEnter();
-    free(sortDirection);
-    free(sortField);
-
+    //array wird richtig eingefügt
+    waitForEnter();
 }
