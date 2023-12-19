@@ -1,5 +1,10 @@
 #include "sort.h"
 #include "datastructure.h"
+#include "tools.h"
+#include <string.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <time.h>
 
 //partition englisch für aufteilen
 int partition (sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compfunction) (sAppointment *, sAppointment *)) {
@@ -38,6 +43,8 @@ void Qsort(sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compFu
 
 void quickSort(sAppointment *pCalendar, int count, int (*compFunction) (sAppointment *, sAppointment *)){
     Qsort(pCalendar, 0, count - 1, compFunction );
+    dummyWaitingFunction();
+    return;
 }
 
 
@@ -82,6 +89,60 @@ int compareDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2)
         return pointer2->Time.Second - pointer1->Time.Second;
 }
 
+int compareDurationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if(pointer1->Duration->Hour - pointer2->Duration->Hour != 0)
+        return pointer1->Date.Year - pointer2->Duration->Hour;
+    else if(pointer1->Duration->Minute - pointer2->Duration->Minute != 0)
+        return pointer1->Duration->Minute - pointer2->Duration->Minute;
+    else if(pointer1->Duration->Second - pointer2->Duration->Second != 0)
+        return pointer1->Duration->Second - pointer2->Duration->Second;
+    else
+        return compareDateAndTimeIncreasing(pointer1,pointer2);
+}
+
+int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2) {
+    if (pointer2->Duration->Hour - pointer1->Duration->Hour != 0)
+        return pointer2->Date.Year - pointer1->Duration->Hour;
+    else if (pointer2->Duration->Minute - pointer1->Duration->Minute != 0)
+        return pointer2->Duration->Minute - pointer1->Duration->Minute;
+    else if (pointer2->Duration->Second - pointer1->Duration->Second != 0)
+        return pointer2->Duration->Second - pointer1->Duration->Second;
+    else
+        return compareDateAndTimeDecreasing(pointer1, pointer2);
+}
+
+int compareDescriptionAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if (strcmp(pointer1->Description, pointer2->Description) != 0){
+        return strcmp(pointer1->Description,pointer2->Description);
+    }else
+        return compareDateAndTimeIncreasing(pointer1,pointer2);
+}
+
+int compareDescriptionAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if (strcmp(pointer1->Description, pointer2->Description) != 0){
+        return strcmp(pointer1->Description,pointer2->Description);
+    }else
+        return compareDateAndTimeDecreasing(pointer1,pointer2);
+}
+
+int compareLocationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
+    printf("rein in cmpfct:     ");
+    printf("Locaiton1: %s       ",pointer1->Location);
+    printf("Locaiton2: %s\n",pointer2->Location);
+    waitForEnter();
+    if (pointer1->Location && pointer2->Location && strcmp(pointer1->Location, pointer2->Location) != 0 ){
+        printf("nichts ist (null)");
+        return strcmp(pointer1->Location,pointer2->Location);
+    }else
+        return compareDateAndTimeIncreasing(pointer1,pointer2);
+}
+
+int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if (strcmp(pointer1->Location, pointer2->Location) != 0){
+        return strcmp(pointer1->Location,pointer2->Location);
+    }else
+        return compareDateAndTimeDecreasing(pointer1,pointer2);
+}
 
 
 
@@ -94,3 +155,30 @@ int compareDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2)
 // Ort / Datum / Uhrzeit                                                                              (nach Ort und sonst 1. aufrufen)
 
 // irgendwie noch maxtime hinzufügen
+
+void dummyWaitingFunction() {
+    const int totalProgress = 10;  // Total number of steps in the progress bar
+    const char progressBarChar = '#';
+
+    printf("Kalender sortieren: [");
+
+    for (int i = 0; i < totalProgress; ++i) {
+        // Simulate a random time interval between 1 and 5 seconds
+        struct timespec interval;
+        interval.tv_sec = 0;
+        interval.tv_nsec = 1000000000 * (3 + rand() % 10);  // nanosleep takes nanoseconds
+
+        nanosleep(&interval, NULL);
+
+        // Update the progress bar
+        printf("%c", progressBarChar);
+        fflush(stdout);  // Flush the output to ensure immediate display
+
+        // Simulate a longer pause after the progress bar is complete
+        if (i == totalProgress - 1) {
+            interval.tv_nsec = 2000000000;  // 2 seconds
+            nanosleep(&interval, NULL);
+        }
+    }
+    printf("] Fertig!\n");
+}

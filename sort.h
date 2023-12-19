@@ -18,4 +18,18 @@ int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2)
 
 int compareDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
 
+int compareDurationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+int compareDescriptionAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+int compareDescriptionAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+int compareLocationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
+
+void dummyWaitingFunction();
+
 #endif //AUD_SORT_H

@@ -74,10 +74,10 @@ void sortCalendar(sAppointment *calendar) {
 
     while("Für Fortnite"){
         switch (getMenu(menuTitle, menuItems, 5)){
-            case 1: sortDateTime(calendar); break;
-            case 2: editAppointment(); break;
-            case 3: deleteAppointment(); break;
-            case 4: searchAppointment(); break;
+            case 1: chooseSortingDirection(calendar,1); break;
+            case 2: chooseSortingDirection(calendar,2); break;
+            case 3: chooseSortingDirection(calendar,3); break;
+            case 4: chooseSortingDirection(calendar,4); break;
             case 5: return;
         }
     }
@@ -136,30 +136,48 @@ void freeCalendar(sAppointment *calendar){
     }
 }
 
-void sortDateTime(sAppointment *pCalendar){
-    int(*directionFunction) (sAppointment *, sAppointment *);
+void chooseSortingDirection(sAppointment *pCalendar, short sortingTypeID) {
+    signed int directionModifier = 0;
+
     char *menuItems[] = {"Aufsteigend sortieren",
                          "Absteigend sortieren",
                          "zurueck zum Hauptmenue"};
-    while("Für Fortnite"){
-        switch (getMenu("Sort after Date / Time" , menuItems, 3)){
-            case 1: directionFunction = compareDateAndTimeIncreasing; break;
-            case 2: directionFunction = compareDateAndTimeDecreasing; break;
-            case 3: return;
+
+    int (*compareFunction)(sAppointment *, sAppointment *);
+    char *sortAfter[] = { "Hallo, hoffe du hast nen shcönen Tag :)",
+                         "Sortieren nach Datum / Uhrzeit",
+                         "Sortieren nach Dauer / Datum / Uhrzeit",
+                         "Sortieren nach Bezeichnung / Datum / Uhrzeit",
+                         "Sortieren nach Ort / Datum / Uhrzeit"};
+
+    while ("Für Fortnite") {
+        switch (getMenu(sortAfter[sortingTypeID], menuItems, 3)) {
+            case 1:
+                directionModifier = 1;
+                break;
+            case 2:
+                directionModifier = -1;
+                break;
+            case 3:
+                return;
         }
         break;
     }
 
-
-    quickSort(pCalendar, countAppointments, directionFunction);
-
-
-    printf("\narray:\n");
-    for (int i = 0; i < countAppointments; i++) {
-        printf("%d ", pCalendar[i].Date.Year);
+    directionModifier = directionModifier * sortingTypeID;
+    switch (directionModifier){
+        case  0: return;
+        case  1: compareFunction = compareDateAndTimeIncreasing; break;
+        case -1: compareFunction = compareDateAndTimeDecreasing; break;
+        case  2: compareFunction = compareDurationAndDateAndTimeIncreasing; break;
+        case -2: compareFunction = compareDurationAndDateAndTimeDecreasing; break;
+        case  3: compareFunction = compareDescriptionAndDateAndTimeIncreasing; break;
+        case -3: compareFunction = compareDescriptionAndDateAndTimeDecreasing; break;
+        case  4: compareFunction = compareLocationAndDateAndTimeIncreasing; break;
+        case -4: compareFunction = compareLocationAndDateAndTimeDecreasing; break;
     }
-    printf("\n");
 
-    //array wird richtig eingefügt
-    waitForEnter();
+    quickSort(pCalendar, countAppointments, compareFunction);
+
+    return;
 }
