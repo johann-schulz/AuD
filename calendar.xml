@@ -1,5 +1,11 @@
 <Calendar>
 	<Appointment>
+		<Date>01.01.0001</Date>
+		<Time>00:00:00</Time>
+		<Description>Ob dieser angelegter Termin mit minimalen Daten auch funktioniert???</Description>
+		<Duration>00:00</Duration>
+	</Appointment>
+	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>15:10:00</Time>
 		<Description>zur Hochschule fahren</Description>
@@ -51,12 +57,6 @@
 		<Time>17:45:00</Time>
 		<Description>AuD - Abgabe 6. Aufgabe</Description>
 		<Location>Raum D 114</Location>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>01.01.0001</Date>
-		<Time>00:00:00</Time>
-		<Description>Ob dieser angelegter Termin mit minimalen Daten auch funktioniert???</Description>
 		<Duration>00:00</Duration>
 	</Appointment>
 </Calendar>

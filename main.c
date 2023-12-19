@@ -26,7 +26,7 @@ int main()
             case 2: editAppointment(); break;
             case 3: deleteAppointment(); break;
             case 4: searchAppointment(); break;
-            case 5: sortCalendar(); break;
+            case 5: sortCalendar(Calendar); break;
             case 6: listCalendar(Calendar); break;
             case 7: endProgramm();
         }

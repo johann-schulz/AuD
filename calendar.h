@@ -36,11 +36,11 @@
 
     /***************************************************************************
     *  Name: sortCalendar
-    *  Beschreibung:
-    *  Parameter:
+    *  Beschreibung: lets the user decide between 4 options to sort the calendar
+    *  Parameter: pointer on Calendar
     *  Ergebnis : -
     ***************************************************************************/
-    void sortCalendar();
+    void sortCalendar(sAppointment *calendar);
 
     /***************************************************************************
     *  Name: listCalendar
@@ -65,5 +65,13 @@
     *  Ergebnis : -
     ***************************************************************************/
     void freeCalendar(sAppointment*);
+
+    /***************************************************************************
+    *  Name: chooseSortingDirection
+    *  Beschreibung: lets the user decide if the calendar should be sorted increasing or decreasing
+    *  Parameter: pointer to Calendar, ID for Type of sorting
+    *  Ergebnis : -
+    ***************************************************************************/
+    void chooseSortingDirection(sAppointment *pCalendar, short sortingTypeID);
 
 #endif /* calendar_h */
