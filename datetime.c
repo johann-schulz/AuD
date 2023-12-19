@@ -229,7 +229,13 @@ void printTime(sTime time){
 
 void printAppointment(sAppointment* appointment) {
     printTime(appointment->Time);
+    if(appointment->Duration->Hour != 0 || appointment->Duration->Minute != 0 || appointment->Duration->Second != 0 ){
+        printf(" - ");
+        printTime(calculateEndTime(appointment));
+    }else
+        printf("        ");
     printf(" -> ");
+
 
     if (appointment->Location != NULL) {
         printf("%-20s| ", appointment->Location);
@@ -249,6 +255,32 @@ void printAppointment(sAppointment* appointment) {
     } else {
         printf("No description available\n");
     }
+}
+
+sTime calculateEndTime(sAppointment *appointment) {
+    sTime result = {0};
+    // Add seconds
+    result.Second = appointment->Time.Second + appointment->Duration->Second;
+    // Handle overflow in seconds
+    if (result.Second >= 60) {
+        result.Second -= 60;
+        result.Minute += 1;
+    }
+    // Add minutes
+    result.Minute += appointment->Time.Minute + appointment->Duration->Minute;
+    // Handle overflow in minutes
+    if (result.Minute >= 60) {
+        result.Minute -= 60;
+        result.Hour += 1;
+    }
+    // Add hours
+    result.Hour += appointment->Time.Hour + appointment->Duration->Hour;
+    // Handle overflow in hours
+    if (result.Hour >= 24) {
+        result.Hour -= 24;
+    }
+    return result;
+
 }
 
 
@@ -283,3 +315,4 @@ int isSameDate(sDate currentDate, sDate calendarDate){
         return 0;
     }
 }
+

@@ -72,6 +72,6 @@
     *  Parameter: pointer to Calendar, ID for Type of sorting
     *  Ergebnis : -
     ***************************************************************************/
-    void chooseSortingDirection(sAppointment *pCalendar, short sortingTypeID);
+    void chooseSortingDirection(sAppointment *calendar, int sortingTypeID);
 
 #endif /* calendar_h */

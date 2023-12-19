@@ -91,4 +91,5 @@
     ***************************************************************************/
     int isSameDate(sDate, sDate);
 
+    sTime calculateEndTime(sAppointment *);
 #endif /* datetime_h */

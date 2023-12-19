@@ -6,6 +6,7 @@
 #include "datetime.h"
 #include "menu.h"
 #include "sort.h"
+#include "string.h"
 
 
 int countAppointments = 0;
@@ -71,7 +72,6 @@ void sortCalendar(sAppointment *calendar) {
                          "Bezeichnung / Datum / Uhrzeit",
                          "Ort / Datum / Uhrzeit",
                          "zurueck zum Hauptmenue"};
-
     while("Für Fortnite"){
         switch (getMenu(menuTitle, menuItems, 5)){
             case 1: chooseSortingDirection(calendar,1); break;
@@ -80,6 +80,7 @@ void sortCalendar(sAppointment *calendar) {
             case 4: chooseSortingDirection(calendar,4); break;
             case 5: return;
         }
+        break;
     }
 }
 
@@ -136,37 +137,35 @@ void freeCalendar(sAppointment *calendar){
     }
 }
 
-void chooseSortingDirection(sAppointment *pCalendar, short sortingTypeID) {
+void chooseSortingDirection(sAppointment *calendar, int sortingTypeID){
     signed int directionModifier = 0;
-
+    int (*compareFunction)(sAppointment *, sAppointment *);
     char *menuItems[] = {"Aufsteigend sortieren",
                          "Absteigend sortieren",
-                         "zurueck zum Hauptmenue"};
-
-    int (*compareFunction)(sAppointment *, sAppointment *);
+                         "Doch lieber anders Sortieren"};
     char *sortAfter[] = { "Hallo, hoffe du hast nen shcönen Tag :)",
-                         "Sortieren nach Datum / Uhrzeit",
-                         "Sortieren nach Dauer / Datum / Uhrzeit",
-                         "Sortieren nach Bezeichnung / Datum / Uhrzeit",
-                         "Sortieren nach Ort / Datum / Uhrzeit"};
+                         " Datum / Uhrzeit",
+                         " Dauer / Datum / Uhrzeit",
+                         " Bezeichnung / Datum / Uhrzeit",
+                         " Ort / Datum / Uhrzeit"};
 
+    char *title = malloc(50);
+    if (title == NULL) {
+        fprintf(stderr, "Memory allocation error in Title\n");
+        exit(EXIT_FAILURE);
+    }
+    sprintf(title, "Sortieren nach %s", sortAfter[sortingTypeID]);
     while ("Für Fortnite") {
-        switch (getMenu(sortAfter[sortingTypeID], menuItems, 3)) {
-            case 1:
-                directionModifier = 1;
-                break;
-            case 2:
-                directionModifier = -1;
-                break;
-            case 3:
-                return;
+        switch (getMenu(title, menuItems, 3)) {
+            case 1: directionModifier = 1; break;
+            case 2: directionModifier = -1; break;
+            case 3: sortCalendar(calendar);break;
         }
         break;
     }
 
     directionModifier = directionModifier * sortingTypeID;
     switch (directionModifier){
-        case  0: return;
         case  1: compareFunction = compareDateAndTimeIncreasing; break;
         case -1: compareFunction = compareDateAndTimeDecreasing; break;
         case  2: compareFunction = compareDurationAndDateAndTimeIncreasing; break;
@@ -175,9 +174,18 @@ void chooseSortingDirection(sAppointment *pCalendar, short sortingTypeID) {
         case -3: compareFunction = compareDescriptionAndDateAndTimeDecreasing; break;
         case  4: compareFunction = compareLocationAndDateAndTimeIncreasing; break;
         case -4: compareFunction = compareLocationAndDateAndTimeDecreasing; break;
+        default: printf("Error, please try again!");return;
     }
 
-    quickSort(pCalendar, countAppointments, compareFunction);
-
-    return;
+    quickSort(calendar, countAppointments, compareFunction);
+    char *successMsg = malloc(100);  // Adjust the size as needed
+    if (successMsg == NULL) {
+        fprintf(stderr, "Memory allocation error for successMsg\n");
+        exit(EXIT_FAILURE);
+    }
+    sprintf(successMsg, "Der Kalender wurde erfolgreich nach %s Verglichen.", sortAfter[sortingTypeID]);
+    printLine('=', strlen(successMsg));
+    puts(successMsg);
+    printLine('=', strlen(successMsg));
+    waitForEnter();
 }

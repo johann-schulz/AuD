@@ -2,61 +2,66 @@
 	<Appointment>
 		<Date>01.01.0001</Date>
 		<Time>00:00:00</Time>
-		<Description>Ob dieser angelegter Termin mit minimalen Daten auch funktioniert???</Description>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
-		<Time>15:10:00</Time>
-		<Description>zur Hochschule fahren</Description>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
-		<Time>16:00:00</Time>
-		<Description>AuD Seminaristischer Unterricht</Description>
-		<Location>Raum D 136 (H5)</Location>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
-		<Time>17:45:00</Time>
-		<Description>AuD Uebungsgruppe 2 - Vierte Uebungsaufgabe abgeben</Description>
-		<Location>Raum D 114</Location>
+		<Description>ob dieser angelegte termin mit minimalen daten auch funktioniert???</Description>
 		<Duration>00:00</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>19:30:00</Time>
-		<Description>AuD Nachsitzen</Description>
+		<Description>aud nachsitzen</Description>
 		<Location>Raum D 114</Location>
 		<Duration>00:00</Duration>
 	</Appointment>
 	<Appointment>
-		<Date>06.12.2023</Date>
-		<Time>00:00:00</Time>
-		<Description>dem Nikolaus auflauern</Description>
-		<Location>Wohnzimmer</Location>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>31.12.2023</Date>
-		<Time>20:00:00</Time>
-		<Description>Silvester-Party</Description>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>04.01.2024</Date>
-		<Time>16:00:00</Time>
-		<Description>AuD - endlich wieder Seminaristischer Unterricht</Description>
-		<Location>Raum D 136 (H5)</Location>
-		<Duration>00:00</Duration>
+		<Date>30.11.2023</Date>
+		<Time>17:45:00</Time>
+		<Description>aud uebungsgruppe 2 - vierte uebungsaufgabe abgeben</Description>
+		<Location>Raum D 114</Location>
+		<Duration>00:05</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>04.01.2024</Date>
 		<Time>17:45:00</Time>
-		<Description>AuD - Abgabe 6. Aufgabe</Description>
+		<Description>aud - abgabe 6. aufgabe</Description>
 		<Location>Raum D 114</Location>
-		<Duration>00:00</Duration>
+		<Duration>00:05</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>30.11.2023</Date>
+		<Time>15:10:00</Time>
+		<Description>zur hochschule fahren</Description>
+		<Duration>01:10</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>30.11.2023</Date>
+		<Time>15:10:00</Time>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>30.11.2023</Date>
+		<Time>16:00:00</Time>
+		<Description>aud seminaristischer unterricht</Description>
+		<Location>Raum D 136 (H5)</Location>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>04.01.2024</Date>
+		<Time>16:00:00</Time>
+		<Description>aud - endlich wieder seminaristischer unterricht</Description>
+		<Location>Raum D 136 (H5)</Location>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>06.12.2023</Date>
+		<Time>00:00:00</Time>
+		<Description>dem nikolaus auflauern</Description>
+		<Location>Wohnzimmer</Location>
+		<Duration>03:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>31.12.2023</Date>
+		<Time>20:00:00</Time>
+		<Description>silvester-party</Description>
+		<Duration>12:00</Duration>
 	</Appointment>
 </Calendar>

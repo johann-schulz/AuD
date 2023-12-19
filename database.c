@@ -138,7 +138,6 @@ int loadCalendar(sAppointment *calendar) {
         }
     }
     fclose(file);
-    waitForEnter();
     return 1;
 }
 
