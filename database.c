@@ -9,7 +9,7 @@
 
 int loadCalendar(sAppointment *calendar) {
     char line[101];
-    FILE* file = fopen("calendar.xml", "rt");
+    FILE *file = fopen("calendar.xml", "rt");
     if (!file) {
         perror("Error opening file");
         return -1;
@@ -18,17 +18,17 @@ int loadCalendar(sAppointment *calendar) {
     int localAppointmentCount = 0;
     sDate date;
     sTime time;
-    char* description;
-    char* location;
+    char *description;
+    char *location;
     sTime duration;
-    int i =0;
+    int i = 0;
     while (fgets(line, sizeof(line), file) != NULL) {
-        char* lineStart;
+        char *lineStart;
         lineStart = line;
         while ((*lineStart == ' ' || *lineStart == '\t') && *lineStart != '\0') {
             lineStart++;
         }
-        if ((i==0) && (strncmp(lineStart, "<Calendar>", 10) != 0)){
+        if ((i == 0) && (strncmp(lineStart, "<Calendar>", 10) != 0)) {
             printf("Quelldatei hat kein Format, was ausgewertet werden kann.\n");
             waitForEnter();
             fclose(file);
@@ -51,36 +51,33 @@ int loadCalendar(sAppointment *calendar) {
             duration.Minute = 0;
             duration.Second = 0;
 
-        }
-        else if (strncmp(lineStart, "<Date>", 6) == 0) {
+        } else if (strncmp(lineStart, "<Date>", 6) == 0) {
             unsigned len = strlen(lineStart + 6) - 7;
             if (strncmp(lineStart + 5 + len, "</Date>", 7) == 0) {
-                char* tmp = malloc(sizeof(char) * len);
+                char *tmp = malloc(sizeof(char) * len);
                 if (!tmp) {
                     fclose(file);
                     return -1;
                 }
-                strncpy(tmp, lineStart + 6, len-1);
-                tmp[len-1] = '\0';
+                strncpy(tmp, lineStart + 6, len - 1);
+                tmp[len - 1] = '\0';
                 getDateFromString(tmp, &date);
                 free(tmp);
             }
-        }
-        else if (strncmp(lineStart, "<Time>", 6) == 0) {
+        } else if (strncmp(lineStart, "<Time>", 6) == 0) {
             unsigned len = strlen(lineStart + 6) - 7;
             if (strncmp(lineStart + 5 + len, "</Time>", 7) == 0) {
-                char* tmp = malloc(sizeof(char) * len);
+                char *tmp = malloc(sizeof(char) * len);
                 if (!tmp) {
                     fclose(file);
                     return -1;
                 }
-                strncpy(tmp, lineStart + 6, len-1);
-                tmp[len-1] = '\0';
+                strncpy(tmp, lineStart + 6, len - 1);
+                tmp[len - 1] = '\0';
                 getTimeFromString(tmp, &time);
                 free(tmp);
             }
-        }
-        else if (strncmp(lineStart, "<Description>", 13) == 0) {
+        } else if (strncmp(lineStart, "<Description>", 13) == 0) {
             unsigned len = strlen(lineStart + 13) - 14;
             if (strncmp(lineStart + 12 + len, "</Description>", 14) == 0) {
                 description = malloc(sizeof(char) * len);
@@ -88,11 +85,10 @@ int loadCalendar(sAppointment *calendar) {
                     fclose(file);
                     return -1;
                 }
-                strncpy(description, lineStart + 13, len-1);
-                description[len-1] = '\0';
+                strncpy(description, lineStart + 13, len - 1);
+                description[len - 1] = '\0';
             }
-        }
-        else if (strncmp(lineStart, "<Location>", 10) == 0) {
+        } else if (strncmp(lineStart, "<Location>", 10) == 0) {
             unsigned len = strlen(lineStart + 10) - 11;
             if (strncmp(lineStart + 9 + len, "</Location>", 11) == 0) {
                 location = malloc(sizeof(char) * len);
@@ -100,25 +96,23 @@ int loadCalendar(sAppointment *calendar) {
                     fclose(file);
                     return -1;
                 }
-                strncpy(location, lineStart + 10, len-1);
-                location[len-1] = '\0';
+                strncpy(location, lineStart + 10, len - 1);
+                location[len - 1] = '\0';
             }
-        }
-        else if (strncmp(lineStart, "<Duration>", 10) == 0) {
+        } else if (strncmp(lineStart, "<Duration>", 10) == 0) {
             unsigned len = strlen(lineStart + 10) - 11;
             if (strncmp(lineStart + 9 + len, "</Duration>", 11) == 0) {
-                char* tmp = malloc(sizeof(char) * len);
+                char *tmp = malloc(sizeof(char) * len);
                 if (!tmp) {
                     fclose(file);
                     return -1;
                 }
-                strncpy(tmp, lineStart + 10, len-1);
-                tmp[len-1] = '\0';
+                strncpy(tmp, lineStart + 10, len - 1);
+                tmp[len - 1] = '\0';
                 getTimeFromString(tmp, &duration);
                 free(tmp);
             }
-        }
-        else if (strncmp(lineStart, "</Appointment>", 14) == 0) {
+        } else if (strncmp(lineStart, "</Appointment>", 14) == 0) {
             if (localAppointmentCount > 0) {
                 if (countAppointments >= MAXAPPOINTMENTS) {
                     printf("Der Speicher ist voll. Es koennen keine weiteren Termine geladen werden\n");
@@ -130,29 +124,38 @@ int loadCalendar(sAppointment *calendar) {
                 calendar[countAppointments].Time = time;
                 calendar[countAppointments].Description = description;
                 calendar[countAppointments].Location = location;
-                calendar[countAppointments].Duration = &duration;
+                if (calendar[countAppointments].Duration == NULL) {
+                    // Fehler beim Speichern von Duration
+                    fclose(file);
+                    printf("Speicher für Duration nicht korrekt reserviert\n");
+                    exit(-1);
+                }
+                calendar[countAppointments].Duration->Hour = duration.Hour;
+                calendar[countAppointments].Duration->Minute = duration.Minute;
+                calendar[countAppointments].Duration->Second = duration.Second;
                 countAppointments++;
             }
         }
     }
     fclose(file);
+    waitForEnter();
     return 1;
 }
 
 
-int saveCalendar(sAppointment *calendar){
-    FILE* file = fopen("calendar.xml", "w");
+int saveCalendar(sAppointment *calendar) {
+    FILE *file = fopen("calendar.xml", "w");
     if (!file) {
         perror("Error opening/ creating file");
         return -1;
     }
     // Success if there is nothing to remove
-    if(!calendar)
+    if (!calendar)
         return 1;
 
     fprintf(file, "<Calendar>\n");
 
-    for(int i = 0; i < countAppointments; i++){
+    for (int i = 0; i < countAppointments; i++) {
         if (!saveAppointment(&calendar[i], file))
             break;
     }
@@ -163,19 +166,22 @@ int saveCalendar(sAppointment *calendar){
 }
 
 
-int saveAppointment(sAppointment *appointment, FILE *file){
-    if (appointment==NULL)
+int saveAppointment(sAppointment *appointment, FILE *file) {
+    if (appointment == NULL)
         return 0;
 
     fprintf(file, "\t<Appointment>\n");
-    fprintf(file, "\t\t<Date>%02d.%02d.%04d</Date>\n", appointment->Date.Day, appointment->Date.Month, appointment->Date.Year);
-    fprintf(file, "\t\t<Time>%02d:%02d:%02d</Time>\n", appointment->Time.Hour, appointment->Time.Minute, appointment->Time.Second);
-    if (appointment->Description!=NULL)
-        fprintf(file, "\t\t<Description>%s</Description>\n",appointment->Description);
-    if (appointment->Location!=NULL)
-        fprintf(file, "\t\t<Location>%s</Location>\n",appointment->Location);
-    if (appointment->Duration!=NULL)
-        fprintf(file, "\t\t<Duration>%02d:%02d</Duration>\n", appointment->Duration->Hour, appointment->Duration->Minute);
+    fprintf(file, "\t\t<Date>%02d.%02d.%04d</Date>\n", appointment->Date.Day, appointment->Date.Month,
+            appointment->Date.Year);
+    fprintf(file, "\t\t<Time>%02d:%02d:%02d</Time>\n", appointment->Time.Hour, appointment->Time.Minute,
+            appointment->Time.Second);
+    if (appointment->Description != NULL)
+        fprintf(file, "\t\t<Description>%s</Description>\n", appointment->Description);
+    if (appointment->Location != NULL)
+        fprintf(file, "\t\t<Location>%s</Location>\n", appointment->Location);
+    if (appointment->Duration != NULL)
+        fprintf(file, "\t\t<Duration>%02d:%02d</Duration>\n", appointment->Duration->Hour,
+                appointment->Duration->Minute);
     fprintf(file, "\t</Appointment>\n");
 
     return 1;
