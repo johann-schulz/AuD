@@ -143,7 +143,7 @@ void chooseSortingDirection(sAppointment *calendar, int sortingTypeID){
     char *menuItems[] = {"Aufsteigend sortieren",
                          "Absteigend sortieren",
                          "Doch lieber anders Sortieren"};
-    char *sortAfter[] = { "Hallo, hoffe du hast nen shcönen Tag :)",
+    char *sortAfter[] = { "Hallo, hoffe du hast nen schoenen Tag :)",
                          " Datum / Uhrzeit",
                          " Dauer / Datum / Uhrzeit",
                          " Bezeichnung / Datum / Uhrzeit",

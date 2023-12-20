@@ -106,17 +106,6 @@ int compareDurationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment
         return compareDateAndTimeIncreasing(pointer1,pointer2);
 }
 
-int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2) {
-    if (pointer2->Duration->Hour - pointer1->Duration->Hour != 0)
-        return pointer2->Duration->Hour - pointer1->Duration->Hour;
-    else if (pointer2->Duration->Minute - pointer1->Duration->Minute != 0)
-        return pointer2->Duration->Minute - pointer1->Duration->Minute;
-    else if (pointer2->Duration->Second - pointer1->Duration->Second != 0)
-        return pointer2->Duration->Second - pointer1->Duration->Second;
-    else
-        return compareDateAndTimeDecreasing(pointer1, pointer2);
-}
-
 int compareDescriptionAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
     if (pointer1->Description && pointer2->Description && strcmp(pointer1->Description, pointer2->Description) != 0){
         return strcmp(pointer1->Description,pointer2->Description);
