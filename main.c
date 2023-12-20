@@ -15,8 +15,8 @@ int main()
     char menuTitle[] = "Terminverwaltung V 0.2";
     char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden",};
     countAppointments=0;
-    for(int i = 0; i<MAXAPPOINTMENTS; i++){
-        Calendar[i].Duration = malloc(sizeof(sTime));
+    for(int i = 0; i<countAppointments; i++){
+        //Calendar[i].Duration = malloc(sizeof(sTime));
     }
     loadCalendar(Calendar);
 

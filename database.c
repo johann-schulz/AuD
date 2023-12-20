@@ -124,6 +124,8 @@ int loadCalendar(sAppointment *calendar) {
                 calendar[countAppointments].Time = time;
                 calendar[countAppointments].Description = description;
                 calendar[countAppointments].Location = location;
+
+                Calendar[countAppointments].Duration = malloc(sizeof(sTime));
                 if (calendar[countAppointments].Duration == NULL) {
                     // Fehler beim Speichern von Duration
                     fclose(file);
