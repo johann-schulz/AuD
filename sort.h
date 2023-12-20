@@ -8,16 +8,16 @@
 
 /***************************************************************************
 *  Name: partition
-*  Beschreibung:
-*  Parameter: pointer to Calendar, lowerLimit of Array, upperLimit of Array, Pointer to compare function
-*  Ergebnis : -
+*  Beschreibung: Divides the Array in two Smaller ones
+*  Parameter: pointer to Calendar, lowerLimit of Array, upperLimit of Array, Pointer to the compare function
+*  Ergebnis : new Value to be compared with "Grenzwert"
 ***************************************************************************/
 int partition(sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compfunction) (sAppointment *, sAppointment *));
 
 /***************************************************************************
 *  Name: Qsort
 *  Beschreibung:
-*  Parameter: pointer to Calendar, ID for Type of sorting
+*  Parameter: Part of Quicksort algorythm
 *  Ergebnis : -
 ***************************************************************************/
 void Qsort(sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compFunction) (sAppointment *, sAppointment *));
@@ -25,37 +25,55 @@ void Qsort(sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compFu
 /***************************************************************************
 *  Name: quickSort
 *  Beschreibung:
-*  Parameter: pointer to Calendar, ID for Type of sorting
+*  Parameter: Part of Quicksort algorythm
 *  Ergebnis : -
 ***************************************************************************/
 void quickSort(sAppointment *pCalendar, int count, int (*compFunction) (sAppointment *, sAppointment *));
 
 /***************************************************************************
 *  Name: swapAppointmentPointer
-*  Beschreibung: lets the user decide if the calendar should be sorted increasing or decreasing
-*  Parameter:
+*  Beschreibung: swaps the L-value of two pointers on sAppointment
+*  Parameter: 2 pointer on sAppointment
 *  Ergebnis : -
 ***************************************************************************/
 void swapAppointmentPointer(sAppointment *pointer1, sAppointment *pointer2);
 
 /***************************************************************************
 *  Name: compareDateAndTimeIncreasing
-*  Beschreibung: lets the user decide if the calendar should be sorted increasing or decreasing
+*  Beschreibung: takes two pointer on sAppointment and subtracts the int value(from corresponding Sort type) of the first from the second
 *  Parameter:
 *  Ergebnis : -
 ***************************************************************************/
 int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
 
+/***************************************************************************
+*  Name: compareDateAndTimeDecreasing
+*  Beschreibung: takes two pointer on sAppointment and subtracts the int value(from corresponding Sort type) of the first from the second
+*  Parameter:
+*  Ergebnis : -
+***************************************************************************/
 int compareDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
-
+//Duration
+/***************************************************************************
+*  Name: compareDurationAndDateAndTimeIncreasing
+*  Beschreibung: takes two pointer on sAppointment and subtracts the int value(from corresponding Sort type) of the first from the second
+*  Parameter:
+*  Ergebnis : -
+***************************************************************************/
 int compareDurationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
 
+/***************************************************************************
+*  Name: compareDurationAndDateAndTimeDecreasing
+*  Beschreibung: takes two pointer on sAppointment and subtracts the int value(from corresponding Sort type) of the first from the second
+*  Parameter:
+*  Ergebnis : -
+***************************************************************************/
 int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
-
+//Description
 int compareDescriptionAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
 
 int compareDescriptionAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
-
+//location
 int compareLocationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2);
 
 int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);

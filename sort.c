@@ -53,6 +53,16 @@ void swapAppointmentPointer(sAppointment *pointer1, sAppointment *pointer2){
     *pointer2 = temp;
 }
 
+int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if(pointer2->Duration->Hour - pointer1->Duration->Hour != 0)
+        return pointer2->Date.Year - pointer1->Duration->Hour;
+    else if(pointer2->Duration->Minute - pointer1->Duration->Minute != 0)
+        return pointer2->Duration->Minute - pointer1->Duration->Minute;
+    else if(pointer2->Duration->Second - pointer1->Duration->Second != 0)
+        return pointer2->Duration->Second - pointer1->Duration->Second;
+    else
+        return compareDateAndTimeDecreasing(pointer1,pointer2);
+}
 
 // das sind meine CMPFCT(compare function) funktionen
 int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
@@ -60,13 +70,13 @@ int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2)
         return pointer1->Date.Year - pointer2->Date.Year;
     else if(pointer1->Date.Month - pointer2->Date.Month != 0)
         return pointer1->Date.Month - pointer2->Date.Month;
-    else if(pointer1->Date.Day - pointer2->Date.Day)
+    else if(pointer1->Date.Day - pointer2->Date.Day != 0)
         return pointer1->Date.Day - pointer2->Date.Day;
-    else if(pointer1->Time.Hour - pointer2->Time.Hour)
+    else if(pointer1->Time.Hour - pointer2->Time.Hour != 0)
         return pointer1->Time.Hour - pointer2->Time.Hour;
-    else if(pointer1->Time.Minute - pointer2->Time.Minute)
+    else if(pointer1->Time.Minute - pointer2->Time.Minute != 0)
         return pointer1->Time.Minute - pointer2->Time.Minute;
-    else //if(pointer1->Time.Second - pointer2->Time.Second)
+    else //if(pointer1->Time.Second - pointer2->Time.Second != 0)
         return pointer1->Time.Second - pointer2->Time.Second;
 
 }
@@ -75,13 +85,13 @@ int compareDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2)
         return pointer2->Date.Year - pointer1->Date.Year;
     else if(pointer2->Date.Month - pointer1->Date.Month != 0)
         return pointer2->Date.Month - pointer1->Date.Month;
-    else if(pointer2->Date.Day - pointer1->Date.Day)
+    else if(pointer2->Date.Day - pointer1->Date.Day != 0)
         return pointer2->Date.Day - pointer1->Date.Day;
-    else if(pointer2->Time.Hour - pointer1->Time.Hour)
+    else if(pointer2->Time.Hour - pointer1->Time.Hour != 0)
         return pointer2->Time.Hour - pointer1->Time.Hour;
-    else if(pointer2->Time.Minute - pointer1->Time.Minute)
+    else if(pointer2->Time.Minute - pointer1->Time.Minute != 0)
         return pointer2->Time.Minute - pointer1->Time.Minute;
-    else //if(pointer2->Time.Second - pointer1->Time.Second)
+    else //if(pointer2->Time.Second - pointer1->Time.Second  != 0)
         return pointer2->Time.Second - pointer1->Time.Second;
 }
 
@@ -136,5 +146,3 @@ int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment
     }else
         return compareDateAndTimeDecreasing(pointer1,pointer2);
 }
-
-

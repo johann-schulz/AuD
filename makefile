@@ -1,5 +1,5 @@
 cc = gcc
-CFLAGS = -Wall -lm
+CFLAGS = -Wall
 OBJ = main.o datetime.o tools.o menu.o calendar.o database.o sort.o
 
 main: $(OBJ)

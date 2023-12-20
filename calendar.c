@@ -72,6 +72,7 @@ void sortCalendar(sAppointment *calendar) {
                          "Bezeichnung / Datum / Uhrzeit",
                          "Ort / Datum / Uhrzeit",
                          "zurueck zum Hauptmenue"};
+
     while("Für Fortnite"){
         switch (getMenu(menuTitle, menuItems, 5)){
             case 1: chooseSortingDirection(calendar,1); break;
@@ -80,7 +81,6 @@ void sortCalendar(sAppointment *calendar) {
             case 4: chooseSortingDirection(calendar,4); break;
             case 5: return;
         }
-        break;
     }
 }
 
