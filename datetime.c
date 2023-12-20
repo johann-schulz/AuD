@@ -244,10 +244,10 @@ void printAppointment(sAppointment* appointment) {
     }
 
     if (appointment->Description != NULL) {
-        if (strlen(appointment->Description) > 48) {
-            char desc[45];
-            strncpy(desc, appointment->Description, 44);
-            desc[44] = '\0';
+        if (strlen(appointment->Description) >39) {
+            char desc[36];
+            strncpy(desc, appointment->Description, 35);
+            desc[35] = '\0';
             printf("%s ...\n", desc);
         } else {
             printf("%s\n", appointment->Description);
