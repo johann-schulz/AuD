@@ -69,7 +69,7 @@
     /***************************************************************************
     *  Name: chooseSortingDirection
     *  Beschreibung: lets the user decide if the calendar should be sorted increasing or decreasing
-    *  Parameter: pointer to Calendar, ID for Type of sorting
+    *  Parameter: pointer on Calendar, ID for Type of sorting
     *  Ergebnis : -
     ***************************************************************************/
     void chooseSortingDirection(sAppointment *calendar, int sortingTypeID);

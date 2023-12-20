@@ -37,7 +37,7 @@ void Qsort(sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compFu
         newComperator = partition(pCalendar, lowerLimit, upperLimit, compFunction);
         Qsort(pCalendar, lowerLimit            , newComperator - 1, compFunction);
         Qsort(pCalendar, newComperator + 1, upperLimit, compFunction);
-        printf("Momentan wird verglichen mit: %d\nBitte haben sie etwas Geduld\n",newComperator);
+        printf("Momentan wird mit dem grenzwert verglichen: %d\nBitte haben sie etwas Geduld\n",newComperator);
     }
 }
 
@@ -53,16 +53,6 @@ void swapAppointmentPointer(sAppointment *pointer1, sAppointment *pointer2){
     *pointer2 = temp;
 }
 
-int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2){
-    if(pointer2->Duration->Hour - pointer1->Duration->Hour != 0)
-        return pointer2->Date.Year - pointer1->Duration->Hour;
-    else if(pointer2->Duration->Minute - pointer1->Duration->Minute != 0)
-        return pointer2->Duration->Minute - pointer1->Duration->Minute;
-    else if(pointer2->Duration->Second - pointer1->Duration->Second != 0)
-        return pointer2->Duration->Second - pointer1->Duration->Second;
-    else
-        return compareDateAndTimeDecreasing(pointer1,pointer2);
-}
 
 // das sind meine CMPFCT(compare function) funktionen
 int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){
@@ -146,3 +136,9 @@ int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment
     }else
         return compareDateAndTimeDecreasing(pointer1,pointer2);
 }
+
+// sollten diese Funktionen in "sort.c" stehen habe ich vergessen sie in "calendar.c" zu schieben,
+// ist für mein Verständniss nur einfacher gewesen
+
+// den Sinn, dass ein Modul einen Zwiger auf eine Funktion bekommt,
+// welche das Modul gar nicht kennt (ohne "#include" Anweisung) habe ich aber erkannts

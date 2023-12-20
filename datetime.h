@@ -91,5 +91,12 @@
     ***************************************************************************/
     int isSameDate(sDate, sDate);
 
+    /***************************************************************************
+    *  Name: calculateEndTime
+    *  Beschreibung: Takes the Start Time and the Duration of an Appointment and adds both together
+    *               (WARNING! if Duration>24h function subtracts 24h )
+    *  Parameter: pointer on sAppointment (to get Time and Duration)
+    *  Ergebnis : EndTime of Appointment
+    ***************************************************************************/
     sTime calculateEndTime(sAppointment *);
 #endif /* datetime_h */
