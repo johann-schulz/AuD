@@ -10,7 +10,7 @@
 
 
 int countAppointments = 0;
-sAppointment Calendar[MAXAPPOINTMENTS];
+static sAppointment *First = NULL, *Last = NULL;
 
 sAppointment* createAppointment() {
     // Temporäre Zeiger
@@ -19,10 +19,10 @@ sAppointment* createAppointment() {
     sTime *tempTime;
     sTime *tempDuration;
 
-    if(countAppointments >= MAXAPPOINTMENTS){
-        printf("Der Speicher ist voll. Sie können keine weiteren Termine machen\n");
-        return NULL;
-    }
+//    if(countAppointments >= MAXAPPOINTMENTS){
+//        printf("Der Speicher ist voll. Sie können keine weiteren Termine machen\n");
+//        return NULL;
+//    }
 
     clearScreen();
     printf("Erfassung eines neuen Termins\n");
