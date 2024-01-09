@@ -10,7 +10,7 @@
 
 
 int countAppointments = 0;
-static sAppointment *First = NULL, *Last = NULL;
+extern sAppointment *First = NULL, *Last = NULL;
 
 sAppointment* createAppointment() {
     // Temporäre Zeiger

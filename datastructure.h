@@ -32,8 +32,8 @@ typedef struct {
     char* Description;
     char* Location;
     sTime* Duration;
-    struct sAppointment *next;
-    struct sAppointment *prev;
+    struct sAppointment *Next;
+    struct sAppointment *Prev;
 } sAppointment;
 
 extern int countAppointments;
