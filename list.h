@@ -4,6 +4,6 @@
 #include "datastructure.h"
 
 void insertInDList(sAppointment *pAppointment, int (*cmpfct) (sAppointment *, sAppointment *));
-void removeFromDList(sAppointment *pAppointment, sAppointment **pFirst, sAppointment **pLast);
+sAppointment *removeListElement(sAppointment *Remove, int (*cmpfct)(sAppointment *, sAppointment *));
 
 #endif
