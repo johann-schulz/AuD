@@ -34,6 +34,7 @@ typedef struct {
     sTime* Duration;
     struct sAppointment *Next;
     struct sAppointment *Prev;
+    int id;
 } sAppointment;
 
 extern int countAppointments;

@@ -4,6 +4,7 @@
 #include "datetime.h"
 #include "tools.h"
 #include "calendar.h"
+#include "calendar.c"
 #include "menu.h"
 #include "database.h"
 
@@ -12,13 +13,19 @@ void endProgramm();
 
 int main()
 {
+    sAppointment *tmp = NULL;
     char menuTitle[] = "Terminverwaltung V 0.2";
     char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden",};
     countAppointments=0;
     for(int i = 0; i<countAppointments; i++){
         //Calendar[i].Duration = malloc(sizeof(sTime));
     }
-    loadCalendar(Calendar);
+
+    while (tmp = First){
+        loadCalendar(tmp);
+        tmp = tmp->Next;
+    }
+
 
     while("Für Fortnite"){
         switch (getMenu(menuTitle, menuItems, 7)){

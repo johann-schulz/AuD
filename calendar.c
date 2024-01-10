@@ -7,6 +7,7 @@
 #include "menu.h"
 #include "sort.h"
 #include "string.h"
+#include "list.h"
 
 
 int countAppointments = 0;
@@ -29,7 +30,7 @@ sAppointment* createAppointment() {
     printLine('=', 30);
     printf("\n");
 
-    sAppointment *appointment = &Calendar[countAppointments];
+    sAppointment *appointment = NULL;
     getDate("Datum          : ", &appointment->Date);
     getTime("Uhrzeit        : ", &tempTime);
     getTime("Dauer          : ", &tempDuration);
@@ -40,6 +41,9 @@ sAppointment* createAppointment() {
     appointment->Duration = tempDuration;
     appointment->Description = tempDescription;
     appointment->Location = tempLocation;
+    appointment->count = countAppointments;
+
+    insertInDList(appointment, compareDateAndTimeIncreasing);
 
     free(tempTime);
 
