@@ -30,27 +30,30 @@ sAppointment* createAppointment() {
     printLine('=', 30);
     printf("\n");
 
-    sAppointment *appointment = NULL;
-    getDate("Datum          : ", &appointment->Date);
-    getTime("Uhrzeit        : ", &tempTime);
-    getTime("Dauer          : ", &tempDuration);
-    getText("Beschreibung   : ", 100, &tempDescription, 0);
-    getText("Ort            : ", 15, &tempLocation, 1);
+    sAppointment *appointment = malloc(sizeof(sAppointment));
+    if (appointment != NULL) {
+        getDate("Datum          : ", &appointment->Date);
+        getTime("Uhrzeit        : ", &tempTime);
+        getTime("Dauer          : ", &tempDuration);
+        getText("Beschreibung   : ", 100, &tempDescription, 0);
+        getText("Ort            : ", 15, &tempLocation, 1);
 
-    appointment->Time = *tempTime;
-    appointment->Duration = tempDuration;
-    appointment->Description = tempDescription;
-    appointment->Location = tempLocation;
+        appointment->Time = *tempTime;
+        appointment->Duration = tempDuration;
+        appointment->Description = tempDescription;
+        appointment->Location = tempLocation;
 
-    insertInDList(appointment, compareDateAndTimeIncreasing);
+        insertInDList(appointment, compareDateAndTimeIncreasing);
 
-    free(tempTime);
+        free(tempTime);
 
-    printf("\nTermin wurde erfolgreich gespeichert!\n");
-    waitForEnter();
+        printf("\nTermin wurde erfolgreich gespeichert!\n");
+        waitForEnter();
 
-    countAppointments++;
-    return appointment;
+        countAppointments++;
+        return appointment;
+    }
+    return NULL;
 }
 
 void editAppointment() {
@@ -59,7 +62,12 @@ void editAppointment() {
 }
 
 void deleteAppointment() {
-    sAppointment *tmp = NULL;
+    sAppointment *tmp = malloc(sizeof(sAppointment));
+    if (tmp == NULL) {
+        // Fehlerbehandlung: Speicherreservierung fehlgeschlagen
+        return;
+    }
+
     int choice;
     int localcount = listCalendar();
     while("für Fortnite") {
@@ -69,16 +77,18 @@ void deleteAppointment() {
         if (choice == '\n') continue;
 
         // Validierung der Eingabe Durchführen einer Aktion je nach Eingabe
-        if (validInput != 1 || choice < 1 || choice > localcount) {
+        if (validInput != 1 || choice < 0 || choice > localcount) {
             continue;
-        }
+        } else if(choice == 0)
+            return;
         break;
     }
+    tmp = First;
     for (int j = 1; j < choice; j++){
         tmp = tmp->Next;
     }
-    freeAppointment(removeListElement(tmp, compareDateAndTimeIncreasing));
-    free(tmp);
+    removeListElement(tmp, compareDateAndTimeIncreasing);
+    countAppointments--;
 }
 
 void searchAppointment() {
@@ -139,7 +149,7 @@ int listCalendar() {
         tmp = tmp->Next;
     }
     waitForEnter();
-    return i+1;
+    return i;
 }
 
 void freeAppointment(sAppointment *appointment) {

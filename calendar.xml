@@ -7,27 +7,6 @@
 	</Appointment>
 	<Appointment>
 		<Date>30.11.2023</Date>
-		<Time>19:30:00</Time>
-		<Description>aud nachsitzen</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
-		<Time>17:45:00</Time>
-		<Description>aud uebungsgruppe 2 - vierte uebungsaufgabe abgeben</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:05</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>04.01.2024</Date>
-		<Time>17:45:00</Time>
-		<Description>aud - abgabe 6. aufgabe</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:05</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
 		<Time>15:10:00</Time>
 		<Description>zur hochschule fahren</Description>
 		<Duration>01:10</Duration>
@@ -45,11 +24,18 @@
 		<Duration>01:30</Duration>
 	</Appointment>
 	<Appointment>
-		<Date>04.01.2024</Date>
-		<Time>16:00:00</Time>
-		<Description>aud - endlich wieder seminaristischer unterricht</Description>
-		<Location>Raum D 136 (H5)</Location>
-		<Duration>01:30</Duration>
+		<Date>30.11.2023</Date>
+		<Time>17:45:00</Time>
+		<Description>aud uebungsgruppe 2 - vierte uebungsaufgabe abgeben</Description>
+		<Location>Raum D 114</Location>
+		<Duration>00:05</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>30.11.2023</Date>
+		<Time>19:30:00</Time>
+		<Description>aud nachsitzen</Description>
+		<Location>Raum D 114</Location>
+		<Duration>00:00</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>06.12.2023</Date>
@@ -63,5 +49,19 @@
 		<Time>20:00:00</Time>
 		<Description>silvester-party</Description>
 		<Duration>12:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>04.01.2024</Date>
+		<Time>16:00:00</Time>
+		<Description>aud - endlich wieder seminaristischer unterricht</Description>
+		<Location>Raum D 136 (H5)</Location>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>04.01.2024</Date>
+		<Time>17:45:00</Time>
+		<Description>aud - abgabe 6. aufgabe</Description>
+		<Location>Raum D 114</Location>
+		<Duration>00:05</Duration>
 	</Appointment>
 </Calendar>

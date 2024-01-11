@@ -51,13 +51,13 @@ sAppointment *removeListElement(sAppointment *Remove, int (*cmpfct)(sAppointment
             } else {
                 First->Prev = NULL;
             }
-        } else if ((*cmpfct)(Last, Remove) == 0) { // Fall 3: letztes Element entfernen
+        } else if (cmpfct(Last, Remove) == 0) { // Fall 3: letztes Element entfernen
             rmv = Last;
             Last = Last->Prev;
             Last->Next = NULL;
         } else {
             while (tmp->Next) { // Fall 4: sonstiges Element entfernen
-                if ((*cmpfct)(tmp->Next, Remove) == 0) {
+                if (cmpfct(tmp->Next, Remove) == 0) {
                     rmv = tmp->Next;
                     tmp->Next = rmv->Next;
                     tmp->Next->Prev = tmp;

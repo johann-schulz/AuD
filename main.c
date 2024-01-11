@@ -14,6 +14,8 @@ void endProgramm();
 
 int main()
 {
+    First = NULL;
+    Last = NULL;
     char menuTitle[] = "Terminverwaltung V 0.2";
     char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine auflisten", "Programm beenden",};
     countAppointments=0;
@@ -21,19 +23,10 @@ int main()
         //Calendar[i].Duration = malloc(sizeof(sTime));
     }
 
-
     loadCalendar();
-    //printAppointment(First);
-    printAppointment(Last);
-
-
-    waitForEnter();
-    listCalendar();
-
-
 
     while("Für Fortnite"){
-        switch (getMenu(menuTitle, menuItems, 7)){
+        switch (getMenu(menuTitle, menuItems, 6)){
             case 1: createAppointment(); break;
             case 2: editAppointment(); break;
             case 3: deleteAppointment(); break;
