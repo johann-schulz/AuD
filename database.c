@@ -3,12 +3,10 @@
 #include <string.h>
 #include "database.h"
 #include "datastructure.h"
-#include "calendar.h"
 #include "tools.h"
 #include "datetime.h"
 #include "list.h"
 #include "sort.h"
-#include "calendar.c"
 
 int loadCalendar() {
     char line[101];
@@ -117,30 +115,30 @@ int loadCalendar() {
             }
         } else if (strncmp(lineStart, "</Appointment>", 14) == 0) {
             if (localAppointmentCount > 0) {
-                sAppointment tmp;
+                sAppointment *tmp = NULL;
 //                if (countAppointments >= MAXAPPOINTMENTS) {
 //                    printf("Der Speicher ist voll. Es koennen keine weiteren Termine geladen werden\n");
 //                    fclose(file);
 //                    return -1;
 //                }
                 // Speichert alle Werte im aktuellen Appointment
-                tmp.Date = date;
-                tmp.Time = time;
-                tmp.Description = description;
-                tmp.Location = location;
+                tmp->Date = date;
+                tmp->Time = time;
+                tmp->Description = description;
+                tmp->Location = location;
 
-                tmp.Duration = malloc(sizeof(sTime));
-                if (tmp.Duration == NULL) {
+                tmp->Duration = malloc(sizeof(sTime));
+                if (tmp->Duration == NULL) {
                     // Fehler beim Speichern von Duration
                     fclose(file);
                     printf("Speicher für Duration nicht korrekt reserviert\n");
                     exit(-1);
                 }
-                tmp.Duration->Hour = duration.Hour;
-                tmp.Duration->Minute = duration.Minute;
-                tmp.Duration->Second = duration.Second;
-                tmp.id = countAppointments;
-                insertInDList(&tmp, compareDateAndTimeIncreasing);
+                tmp->Duration->Hour = duration.Hour;
+                tmp->Duration->Minute = duration.Minute;
+                tmp->Duration->Second = duration.Second;
+                tmp->id = countAppointments;
+                insertInDList(tmp, compareDateAndTimeIncreasing);
                 countAppointments++;
             }
         }
@@ -160,7 +158,8 @@ int saveCalendar() {
 
     fprintf(file, "<Calendar>\n");
 
-    while(tmp = First) {
+    tmp = First;
+    while(tmp) {
         if (!saveAppointment(tmp, file))
             break;
         tmp = tmp->Next;

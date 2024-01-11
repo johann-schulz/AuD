@@ -11,7 +11,7 @@
 
 
 int countAppointments = 0;
-extern sAppointment *First = NULL, *Last = NULL;
+
 
 sAppointment* createAppointment() {
     // Temporäre Zeiger
@@ -78,8 +78,7 @@ void deleteAppointment() {
     for (int j = 1; j < choice; j++){
         tmp = tmp->Next;
     }
-    removeListElement(tmp, compareDateAndTimeIncreasing);
-    freeAppointment(tmp);
+    freeAppointment(removeListElement(tmp, compareDateAndTimeIncreasing));
     free(tmp);
 }
 
@@ -119,7 +118,8 @@ int listCalendar() {
     int i = 0;
     int j = 1;
     int k = 10;
-    while (tmp = First){
+    tmp = First;
+    while (tmp){
         if(!isSameDate(currentDate, tmp->Date)){
             currentDate = tmp->Date;
             printLine('=', 80 + j);
@@ -167,7 +167,8 @@ void freeAppointment(sAppointment *appointment) {
 
 void freeCalendar(){
     sAppointment *tmp = NULL;
-    while(tmp = First){
+    tmp = First;
+    while(tmp){
         freeAppointment(tmp);
         tmp = tmp->Next;
     }

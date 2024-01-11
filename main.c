@@ -4,7 +4,6 @@
 #include "datetime.h"
 #include "tools.h"
 #include "calendar.h"
-#include "calendar.c"
 #include "menu.h"
 #include "database.h"
 
@@ -13,7 +12,6 @@ void endProgramm();
 
 int main()
 {
-    sAppointment *tmp = NULL;
     char menuTitle[] = "Terminverwaltung V 0.2";
     char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine auflisten", "Programm beenden",};
     countAppointments=0;

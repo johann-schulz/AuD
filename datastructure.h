@@ -1,5 +1,7 @@
 #ifndef datastructure_h
 #define datastructure_h
+#include <stdio.h>
+
 
 // Beinhaltet alle Wochentage nummeriert: 0 ist kein Wochentag, 1 ist Montag, 2 ist Dienstag usw.
 typedef enum {
@@ -23,7 +25,7 @@ typedef struct {
 }sTime;
 
 // Ein Termin besteht aus Datum, Uhrzeit, Beschreibung, Ort und Dauer
-typedef struct {
+typedef struct sAppointment{
     sDate Date;
     sTime Time;
     char* Description;
@@ -35,5 +37,5 @@ typedef struct {
 } sAppointment;
 
 extern int countAppointments;
-
+extern sAppointment *First = NULL, *Last = NULL;
 #endif /* datastructure_h */
