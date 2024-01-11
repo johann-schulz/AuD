@@ -12,7 +12,7 @@ void insertInDList(sAppointment *New, int (*cmpfct) (sAppointment *, sAppointmen
     if(New){
         if (First == NULL)
             First = Last = New;
-        else if (cmpfct(Last, New) >= 0){
+        else if (cmpfct(First, New) >= 0){
             First->Prev = New;
             New->Next = First;
             First = New;
