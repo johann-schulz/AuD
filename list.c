@@ -1,10 +1,15 @@
 #include "datastructure.h"
 #include <stdio.h>
+#include <stdlib.h>
+#include "datetime.h"
+
+extern sAppointment *First, *Last;
 
 // Funktion zum Einfügen eines Termins in die doppelt verkettete Liste
 void insertInDList(sAppointment *New, int (*cmpfct) (sAppointment *, sAppointment *)) {
     sAppointment *tmp = First;
-    sAppointment *tmp2 = NULL;
+    //New = malloc(sizeof(sAppointment));
+
 
     if(New){
         if (First == NULL)
@@ -23,8 +28,7 @@ void insertInDList(sAppointment *New, int (*cmpfct) (sAppointment *, sAppointmen
                 if (cmpfct(tmp->Next, New) > 0){
                     New->Prev = tmp;
                     New->Next = tmp->Next;
-                    tmp2 = tmp->Next;
-                    tmp2->Prev = New;
+                    tmp->Next->Prev = New;
                     tmp->Next = New;
                     break;
                 }
@@ -37,7 +41,6 @@ void insertInDList(sAppointment *New, int (*cmpfct) (sAppointment *, sAppointmen
 // Funktion zum Entfernen eines Termins aus der doppelt verketteten Liste
 sAppointment *removeListElement(sAppointment *Remove, int (*cmpfct)(sAppointment *, sAppointment *)) {
     sAppointment *tmp = First, *rmv = NULL;
-    sAppointment *tmp2 = NULL;
 
     if (Remove) {
         if (First == NULL) {
@@ -59,8 +62,7 @@ sAppointment *removeListElement(sAppointment *Remove, int (*cmpfct)(sAppointment
                 if ((*cmpfct)(tmp->Next, Remove) == 0) {
                     rmv = tmp->Next;
                     tmp->Next = rmv->Next;
-                    tmp2 = tmp->Next;
-                    tmp2->Prev = tmp;
+                    tmp->Next->Prev = tmp;
                     break;
                 }
                 tmp = tmp->Next;

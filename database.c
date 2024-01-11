@@ -8,6 +8,8 @@
 #include "list.h"
 #include "sort.h"
 
+extern sAppointment *First, *Last;
+
 int loadCalendar() {
     char line[101];
     FILE *file = fopen("calendar.xml", "rt");
@@ -115,31 +117,31 @@ int loadCalendar() {
             }
         } else if (strncmp(lineStart, "</Appointment>", 14) == 0) {
             if (localAppointmentCount > 0) {
-                sAppointment *tmp = NULL;
+                sAppointment tmp;
 //                if (countAppointments >= MAXAPPOINTMENTS) {
 //                    printf("Der Speicher ist voll. Es koennen keine weiteren Termine geladen werden\n");
 //                    fclose(file);
 //                    return -1;
 //                }
                 // Speichert alle Werte im aktuellen Appointment
-                tmp->Date = date;
-                tmp->Time = time;
-                tmp->Description = description;
-                tmp->Location = location;
-
-                tmp->Duration = malloc(sizeof(sTime));
-                if (tmp->Duration == NULL) {
+                tmp.Date = date;
+                tmp.Time = time;
+                tmp.Description = description;
+                tmp.Location = location;
+                tmp.Duration = malloc(sizeof(sTime));
+                if (tmp.Duration == NULL) {
                     // Fehler beim Speichern von Duration
                     fclose(file);
                     printf("Speicher für Duration nicht korrekt reserviert\n");
                     exit(-1);
                 }
-                tmp->Duration->Hour = duration.Hour;
-                tmp->Duration->Minute = duration.Minute;
-                tmp->Duration->Second = duration.Second;
-                tmp->id = countAppointments;
-                insertInDList(tmp, compareDateAndTimeIncreasing);
+                tmp.Duration->Hour = duration.Hour;
+                tmp.Duration->Minute = duration.Minute;
+                tmp.Duration->Second = duration.Second;
+                tmp.id = countAppointments;
+                insertInDList(&tmp, compareDateAndTimeIncreasing);
                 countAppointments++;
+                printAppointment(&tmp);
             }
         }
     }

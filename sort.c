@@ -3,6 +3,8 @@
 #include <string.h>
 #include <stdio.h>
 
+extern sAppointment *First, *Last;
+
 //partition englisch für aufteilen
 int partition (sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compfunction) (sAppointment *, sAppointment *)) {
     sAppointment *comperator = pCalendar + lowerLimit; //comp ist der zu vergleichende grenzwert

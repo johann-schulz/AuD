@@ -1,6 +1,6 @@
 #ifndef datastructure_h
 #define datastructure_h
-#include <stdio.h>
+
 
 
 // Beinhaltet alle Wochentage nummeriert: 0 ist kein Wochentag, 1 ist Montag, 2 ist Dienstag usw.
@@ -37,5 +37,4 @@ typedef struct sAppointment{
 } sAppointment;
 
 extern int countAppointments;
-extern sAppointment *First = NULL, *Last = NULL;
 #endif /* datastructure_h */

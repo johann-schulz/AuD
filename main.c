@@ -7,6 +7,8 @@
 #include "menu.h"
 #include "database.h"
 
+extern sAppointment *First, *Last;
+
 void inputDate();
 void endProgramm();
 
@@ -21,7 +23,9 @@ int main()
 
 
     loadCalendar();
-
+    //printAppointment(First);
+    waitForEnter();
+    listCalendar();
 
 
 
