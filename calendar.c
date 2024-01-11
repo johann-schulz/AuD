@@ -87,7 +87,8 @@ void deleteAppointment() {
     for (int j = 1; j < choice; j++){
         tmp = tmp->Next;
     }
-    removeListElement(tmp, compareDateAndTimeIncreasing);
+    freeAppointment(removeListElement(tmp, compareDateAndTimeIncreasing));
+    free(tmp);
     countAppointments--;
 }
 
