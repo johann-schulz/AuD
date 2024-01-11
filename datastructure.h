@@ -1,9 +1,6 @@
 #ifndef datastructure_h
 #define datastructure_h
 
-
-#define MAXAPPOINTMENTS 100
-
 // Beinhaltet alle Wochentage nummeriert: 0 ist kein Wochentag, 1 ist Montag, 2 ist Dienstag usw.
 typedef enum {
     NotADay = 0,
@@ -38,6 +35,5 @@ typedef struct {
 } sAppointment;
 
 extern int countAppointments;
-extern sAppointment Calendar[MAXAPPOINTMENTS];
 
 #endif /* datastructure_h */
