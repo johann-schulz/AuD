@@ -24,6 +24,9 @@ int main()
 
     loadCalendar();
     //printAppointment(First);
+    printAppointment(Last);
+
+
     waitForEnter();
     listCalendar();
 

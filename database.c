@@ -138,10 +138,9 @@ int loadCalendar() {
                 tmp.Duration->Hour = duration.Hour;
                 tmp.Duration->Minute = duration.Minute;
                 tmp.Duration->Second = duration.Second;
-                tmp.id = countAppointments;
                 insertInDList(&tmp, compareDateAndTimeIncreasing);
                 countAppointments++;
-                printAppointment(&tmp);
+                //printAppointment(&tmp);
             }
         }
     }

@@ -41,7 +41,6 @@ sAppointment* createAppointment() {
     appointment->Duration = tempDuration;
     appointment->Description = tempDescription;
     appointment->Location = tempLocation;
-    appointment->id = countAppointments;
 
     insertInDList(appointment, compareDateAndTimeIncreasing);
 

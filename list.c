@@ -8,8 +8,6 @@ extern sAppointment *First, *Last;
 // Funktion zum Einfügen eines Termins in die doppelt verkettete Liste
 void insertInDList(sAppointment *New, int (*cmpfct) (sAppointment *, sAppointment *)) {
     sAppointment *tmp = First;
-    //New = malloc(sizeof(sAppointment));
-
 
     if(New){
         if (First == NULL)
