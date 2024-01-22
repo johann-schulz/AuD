@@ -1,10 +1,9 @@
 #include "sort.h"
 #include "datastructure.h"
-#include "tools.h"
 #include <string.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
+
+extern sAppointment *First, *Last;
 
 //partition englisch für aufteilen
 int partition (sAppointment *pCalendar, int lowerLimit, int upperLimit, int (*compfunction) (sAppointment *, sAppointment *)) {
@@ -92,6 +91,17 @@ int compareDurationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment
         return pointer1->Duration->Minute - pointer2->Duration->Minute;
     else if(pointer1->Duration->Second - pointer2->Duration->Second != 0)
         return pointer1->Duration->Second - pointer2->Duration->Second;
+    else
+        return compareDateAndTimeIncreasing(pointer1,pointer2);
+}
+
+int compareDurationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2){
+    if(pointer2->Duration->Hour - pointer1->Duration->Hour != 0)
+        return pointer2->Duration->Hour - pointer1->Duration->Hour;
+    else if(pointer2->Duration->Minute - pointer1->Duration->Minute != 0)
+        return pointer2->Duration->Minute - pointer1->Duration->Minute;
+    else if(pointer2->Duration->Second - pointer1->Duration->Second != 0)
+        return pointer2->Duration->Second - pointer1->Duration->Second;
     else
         return compareDateAndTimeIncreasing(pointer1,pointer2);
 }

@@ -3,11 +3,14 @@
 #include <string.h>
 #include "database.h"
 #include "datastructure.h"
-#include "calendar.h"
 #include "tools.h"
 #include "datetime.h"
+#include "list.h"
+#include "sort.h"
 
-int loadCalendar(sAppointment *calendar) {
+extern sAppointment *First, *Last;
+
+int loadCalendar() {
     char line[101];
     FILE *file = fopen("calendar.xml", "rt");
     if (!file) {
@@ -114,27 +117,28 @@ int loadCalendar(sAppointment *calendar) {
             }
         } else if (strncmp(lineStart, "</Appointment>", 14) == 0) {
             if (localAppointmentCount > 0) {
-                if (countAppointments >= MAXAPPOINTMENTS) {
-                    printf("Der Speicher ist voll. Es koennen keine weiteren Termine geladen werden\n");
+                sAppointment *tmp = malloc(sizeof(sAppointment));
+                if (tmp == NULL) {
+                    // Fehlerbehandlung: Speicherreservierung fehlgeschlagen
                     fclose(file);
                     return -1;
                 }
                 // Speichert alle Werte im aktuellen Appointment
-                calendar[countAppointments].Date = date;
-                calendar[countAppointments].Time = time;
-                calendar[countAppointments].Description = description;
-                calendar[countAppointments].Location = location;
-
-                Calendar[countAppointments].Duration = malloc(sizeof(sTime));
-                if (calendar[countAppointments].Duration == NULL) {
+                tmp->Date = date;
+                tmp->Time = time;
+                tmp->Description = description;
+                tmp->Location = location;
+                tmp->Duration = malloc(sizeof(sTime));
+                if (tmp->Duration == NULL) {
                     // Fehler beim Speichern von Duration
                     fclose(file);
                     printf("Speicher für Duration nicht korrekt reserviert\n");
                     exit(-1);
                 }
-                calendar[countAppointments].Duration->Hour = duration.Hour;
-                calendar[countAppointments].Duration->Minute = duration.Minute;
-                calendar[countAppointments].Duration->Second = duration.Second;
+                tmp->Duration->Hour = duration.Hour;
+                tmp->Duration->Minute = duration.Minute;
+                tmp->Duration->Second = duration.Second;
+                insertInDList(tmp, compareDateAndTimeIncreasing);
                 countAppointments++;
             }
         }
@@ -144,21 +148,21 @@ int loadCalendar(sAppointment *calendar) {
 }
 
 
-int saveCalendar(sAppointment *calendar) {
+int saveCalendar() {
     FILE *file = fopen("calendar.xml", "w");
     if (!file) {
         perror("Error opening/ creating file");
         return -1;
     }
-    // Success if there is nothing to remove
-    if (!calendar)
-        return 1;
+    sAppointment *tmp = NULL;
 
     fprintf(file, "<Calendar>\n");
 
-    for (int i = 0; i < countAppointments; i++) {
-        if (!saveAppointment(&calendar[i], file))
+    tmp = First;
+    while(tmp) {
+        if (!saveAppointment(tmp, file))
             break;
+        tmp = tmp->Next;
     }
 
     fprintf(file, "</Calendar>");

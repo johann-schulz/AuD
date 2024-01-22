@@ -6,6 +6,7 @@
 #include <string.h>
 #include <errno.h>
 
+extern sAppointment *First, *Last;
 
 int isLeapYear(int pYear){
     if((pYear % 4 == 0) && ((pYear % 100 != 0)||(pYear % 400 == 0))){

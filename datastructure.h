@@ -2,7 +2,6 @@
 #define datastructure_h
 
 
-#define MAXAPPOINTMENTS 100
 
 // Beinhaltet alle Wochentage nummeriert: 0 ist kein Wochentag, 1 ist Montag, 2 ist Dienstag usw.
 typedef enum {
@@ -26,15 +25,15 @@ typedef struct {
 }sTime;
 
 // Ein Termin besteht aus Datum, Uhrzeit, Beschreibung, Ort und Dauer
-typedef struct {
+typedef struct sAppointment{
     sDate Date;
     sTime Time;
     char* Description;
     char* Location;
     sTime* Duration;
+    struct sAppointment *Next;
+    struct sAppointment *Prev;
 } sAppointment;
 
 extern int countAppointments;
-extern sAppointment Calendar[MAXAPPOINTMENTS];
-
 #endif /* datastructure_h */

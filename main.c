@@ -7,28 +7,32 @@
 #include "menu.h"
 #include "database.h"
 
+extern sAppointment *First, *Last;
+
 void inputDate();
 void endProgramm();
 
 int main()
 {
+    First = NULL;
+    Last = NULL;
     char menuTitle[] = "Terminverwaltung V 0.2";
-    char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine sortieren", "Termine auflisten", "Programm beenden",};
+    char *menuItems[] = {"Neuen Termin anlegen", "Termin bearbeiten", "Termin loeschen", "Termin suchen", "Termine auflisten", "Programm beenden",};
     countAppointments=0;
     for(int i = 0; i<countAppointments; i++){
         //Calendar[i].Duration = malloc(sizeof(sTime));
     }
-    loadCalendar(Calendar);
+
+    loadCalendar();
 
     while("Für Fortnite"){
-        switch (getMenu(menuTitle, menuItems, 7)){
+        switch (getMenu(menuTitle, menuItems, 6)){
             case 1: createAppointment(); break;
             case 2: editAppointment(); break;
             case 3: deleteAppointment(); break;
             case 4: searchAppointment(); break;
-            case 5: sortCalendar(Calendar); break;
-            case 6: listCalendar(Calendar); break;
-            case 7: endProgramm();
+            case 5: listCalendar(); break;
+            case 6: endProgramm();
         }
     }
 }
@@ -44,9 +48,9 @@ int main()
  *******************************************************************/
 void endProgramm(){
     if (askYesOrNo("Sollen die Aenderungen am Kalender gespeichert werden? [j/n]"))
-        saveCalendar(Calendar);
+        saveCalendar();
     printf("Beende...\n");
-    freeCalendar(Calendar);
+    freeCalendar();
     printf("Fertig!\n");
     exit(0);
 }

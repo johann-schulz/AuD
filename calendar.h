@@ -48,7 +48,7 @@
     *  Parameter: the calendar
     *  Ergebnis : -
     ***************************************************************************/
-    void listCalendar(sAppointment*);
+    int listCalendar();
 
     /***************************************************************************
     *  Name: freeAppointment
@@ -64,7 +64,7 @@
     *  Parameter: calendar to be cleared out
     *  Ergebnis : -
     ***************************************************************************/
-    void freeCalendar(sAppointment*);
+    void freeCalendar();
 
     /***************************************************************************
     *  Name: chooseSortingDirection

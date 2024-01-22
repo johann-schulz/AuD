@@ -7,10 +7,11 @@
 #include "menu.h"
 #include "sort.h"
 #include "string.h"
+#include "list.h"
 
 
 int countAppointments = 0;
-sAppointment Calendar[MAXAPPOINTMENTS];
+sAppointment *First = NULL, *Last = NULL;
 
 sAppointment* createAppointment() {
     // Temporäre Zeiger
@@ -19,35 +20,40 @@ sAppointment* createAppointment() {
     sTime *tempTime;
     sTime *tempDuration;
 
-    if(countAppointments >= MAXAPPOINTMENTS){
-        printf("Der Speicher ist voll. Sie können keine weiteren Termine machen\n");
-        return NULL;
-    }
+//    if(countAppointments >= MAXAPPOINTMENTS){
+//        printf("Der Speicher ist voll. Sie können keine weiteren Termine machen\n");
+//        return NULL;
+//    }
 
     clearScreen();
     printf("Erfassung eines neuen Termins\n");
     printLine('=', 30);
     printf("\n");
 
-    sAppointment *appointment = &Calendar[countAppointments];
-    getDate("Datum          : ", &appointment->Date);
-    getTime("Uhrzeit        : ", &tempTime);
-    getTime("Dauer          : ", &tempDuration);
-    getText("Beschreibung   : ", 100, &tempDescription, 0);
-    getText("Ort            : ", 15, &tempLocation, 1);
+    sAppointment *appointment = malloc(sizeof(sAppointment));
+    if (appointment != NULL) {
+        getDate("Datum          : ", &appointment->Date);
+        getTime("Uhrzeit        : ", &tempTime);
+        getTime("Dauer          : ", &tempDuration);
+        getText("Beschreibung   : ", 100, &tempDescription, 0);
+        getText("Ort            : ", 15, &tempLocation, 1);
 
-    appointment->Time = *tempTime;
-    appointment->Duration = tempDuration;
-    appointment->Description = tempDescription;
-    appointment->Location = tempLocation;
+        appointment->Time = *tempTime;
+        appointment->Duration = tempDuration;
+        appointment->Description = tempDescription;
+        appointment->Location = tempLocation;
 
-    free(tempTime);
+        insertInDList(appointment, compareDateAndTimeIncreasing);
 
-    printf("\nTermin wurde erfolgreich gespeichert!\n");
-    waitForEnter();
+        free(tempTime);
 
-    countAppointments++;
-    return appointment;
+        printf("\nTermin wurde erfolgreich gespeichert!\n");
+        waitForEnter();
+
+        countAppointments++;
+        return appointment;
+    }
+    return NULL;
 }
 
 void editAppointment() {
@@ -56,8 +62,34 @@ void editAppointment() {
 }
 
 void deleteAppointment() {
-    printf("Delete Appointment\n");
-    waitForEnter();
+    sAppointment *tmp = malloc(sizeof(sAppointment));
+    if (tmp == NULL) {
+        // Fehlerbehandlung: Speicherreservierung fehlgeschlagen
+        return;
+    }
+
+    int choice;
+    int localcount = listCalendar();
+    while("für Fortnite") {
+        printf("\nGib deine Auswahl ein (für Abbruch gib 0 ein): ");
+        int validInput = scanf("%d", &choice);
+        clearBuffer();
+        if (choice == '\n') continue;
+
+        // Validierung der Eingabe Durchführen einer Aktion je nach Eingabe
+        if (validInput != 1 || choice < 0 || choice > localcount) {
+            continue;
+        } else if(choice == 0)
+            return;
+        break;
+    }
+    tmp = First;
+    for (int j = 1; j < choice; j++){
+        tmp = tmp->Next;
+    }
+    freeAppointment(removeListElement(tmp, compareDateAndTimeIncreasing));
+    free(tmp);
+    countAppointments--;
 }
 
 void searchAppointment() {
@@ -84,30 +116,41 @@ void sortCalendar(sAppointment *calendar) {
     }
 }
 
-void listCalendar(sAppointment *calendar) {
+int listCalendar() {
     sDate currentDate = {0, 0, 0};
+
+    sAppointment *tmp = NULL;
 
     clearScreen();
     printf("Liste der Termine\n");
     printLine('=', 17);
-
-
-    for(int i = 0; i < countAppointments; i++){
-        if(!isSameDate(currentDate, calendar[i].Date)){
-            currentDate = calendar[i].Date;
-            printLine('=', 78);
+    int i = 0;
+    int j = 1;
+    int k = 10;
+    tmp = First;
+    while (tmp){
+        if(!isSameDate(currentDate, tmp->Date)){
+            currentDate = tmp->Date;
+            printLine('=', 80 + j);
             printf("%s, ", dayOfWeekToString(currentDate.DayOfWeek));
             printDate(currentDate);
             printLine('-', 15);
         }
-        printAppointment(&calendar[i]);
+        printf("#%d ", i+1);
+        printAppointment(tmp);
 
         if(((i+1) % 15) == 0){
             waitForEnter();
         }
+        if (((i+1)%k) == 0){
+            j++;
+            k = k*10;
+        }
+        i++;
+        tmp = tmp->Next;
     }
-
     waitForEnter();
+    return i;
 }
 
 void freeAppointment(sAppointment *appointment) {
@@ -131,9 +174,12 @@ void freeAppointment(sAppointment *appointment) {
     }
 }
 
-void freeCalendar(sAppointment *calendar){
-    for(int i = 0; i < countAppointments; i++){
-        freeAppointment(&calendar[i]);
+void freeCalendar(){
+    sAppointment *tmp = NULL;
+    tmp = First;
+    while(tmp){
+        freeAppointment(tmp);
+        tmp = tmp->Next;
     }
 }
 
@@ -188,4 +234,6 @@ void chooseSortingDirection(sAppointment *calendar, int sortingTypeID){
     puts(successMsg);
     printLine('=', strlen(successMsg));
     waitForEnter();
+    free(successMsg);
+    free(title);
 }
