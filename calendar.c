@@ -8,8 +8,9 @@
 #include "sort.h"
 #include "string.h"
 #include "list.h"
+#include "search.h"
 
-
+sHashEntry HashTable[MAXINDEX];
 int countAppointments = 0;
 sAppointment *First = NULL, *Last = NULL;
 
@@ -93,7 +94,39 @@ void deleteAppointment() {
 }
 
 void searchAppointment() {
-    printf("Search Appointment\n");
+    if (!countAppointments)
+    {
+        printf("Search appointment by description");
+        printLine('=', 77);
+        //PrintNewLine(1);
+
+        printf("\n  There are no appointments to search for in the calendar! ");
+        waitForEnter();
+        return;
+    }
+
+    printf("Search appointment by description");
+    printLine('=', 77);
+    printf("\n\n  Please enter the description of the appointment you are looking for:\n  -> ");
+
+    sAppointment app;
+    if (!getText(NULL, 100, &(app.Description), 0)) exit(EXIT_FAILURE);
+    sListEntry * result = searchFirst(HashTable, &app, compareDateAndTimeIncreasing);
+    printf("\nSearchresult:\n");
+    printLine('-', strlen("Searchresult:"));
+    PrintNewLine(2);
+    printLine('=', 77);
+    PrintNewLine(2);
+    if (result)
+    {
+        listOneAppointment(result->Appointment);
+        while (result)
+        {
+            result = searchNext(HashTable, result->Appointment, compareDateAndTimeIncreasing);
+            if (result) listOneAppointment(result->Appointment);
+        }
+    }
+    else printf("  No appointments were found that match the search criteria ...\n\n");
     waitForEnter();
 }
 
@@ -152,6 +185,70 @@ int listCalendar() {
     waitForEnter();
     return i;
 }
+
+void listOneAppointment(sAppointment * app)
+{
+    printf("%s, %02d.%02d.%04i\n", getAppointmentDay(app->Date.DayOfWeek), app->Date.Day, app->Date.Month, app->Date.Year);
+    printLine('-', 15);
+    PrintNewLine(1);
+
+    char * end_time = NULL;
+    if (app->Duration) end_time = add_time(app);
+    printf("  %02d:%02d %7s -> %-15s | ", app->Time.Hour, app->Time.Minute, app->Duration ? end_time : " ", (app->Location) ? app->Location : "No location set");
+    printf(((app->Description ? strlen(app->Description) : 0) < 41) ? "%-40s" : "%-.36s ...", (app->Description) ? app->Description : "No description available ...");
+    PrintNewLine(2);
+    if (end_time) free(end_time);
+}
+
+char * getAppointmentDay(eDayOfTheWeek dayOfTheWeek)
+{
+    switch (dayOfTheWeek)
+    {
+        case 1: return "Mo";
+        case 2: return "Tu";
+        case 3: return "We";
+        case 4: return "Th";
+        case 5: return "Fr";
+        case 6: return "Sa";
+        case 7: return "Su";
+        default: return "NotADay";
+    }
+}
+
+char * add_time(sAppointment * app)
+{
+    sTime t;
+
+    t.Second = app->Time.Second + app->Duration->Second;
+    t.Minute = app->Time.Minute + app->Duration->Minute;
+    t.Hour = app->Time.Hour + app->Duration->Hour;
+
+    if (t.Second >= 60) {
+        t.Minute += t.Second / 60;
+        t.Second %= 60;
+    }
+
+    if (t.Minute >= 60) {
+        t.Hour += t.Minute / 60;
+        t.Minute %= 60;
+    }
+
+    t.Hour %= 24; // Limiting the hours to a 24-hour day
+    // cannot interpret if the end time is on a new day, do not know in which way I would like to implement it (+1)
+
+    char * time = malloc(8);
+    if (time)
+    {
+        sprintf(time, "- %02d:%02d", t.Hour, t.Minute);
+        return time;
+    }
+    else
+    {
+        waitForEnter();
+        exit(EXIT_FAILURE);
+    }
+}
+
 
 void freeAppointment(sAppointment *appointment) {
     if (appointment == NULL) {

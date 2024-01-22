@@ -51,4 +51,17 @@
     ***************************************************************************/
     int getText (char *, unsigned , char **, int);
 
+    /***************************************************************************
+    *  ToUpper
+    *  Converts a lower case character to a upper case character.
+    *  Parameter:
+    *      - c: The lower case character which is to be changed to upper case
+    *         and returned.
+    *  Result: Returns the as parameter given lower case char as upper case or
+    *     0 if the parameter given was not a lower case character (ascii 97-122).
+    ***************************************************************************/
+    char ToUpper(char c);
+
+    void PrintNewLine(unsigned short count);
+
 #endif /* tools_h */

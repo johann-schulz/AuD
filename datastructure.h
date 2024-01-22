@@ -1,6 +1,6 @@
 #ifndef datastructure_h
 #define datastructure_h
-
+#define MAXINDEX 307
 
 
 // Beinhaltet alle Wochentage nummeriert: 0 ist kein Wochentag, 1 ist Montag, 2 ist Dienstag usw.
@@ -35,5 +35,17 @@ typedef struct sAppointment{
     struct sAppointment *Prev;
 } sAppointment;
 
+typedef struct sLE
+{
+    sAppointment * Appointment;
+    struct sLE * Next;
+} sListEntry;
+
+typedef struct
+{
+    sListEntry * First, * Last;
+} sHashEntry;
+
+extern sHashEntry HashTable[MAXINDEX];
 extern int countAppointments;
 #endif /* datastructure_h */

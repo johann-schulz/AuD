@@ -88,4 +88,17 @@ int getText(char*promptMessage, unsigned max, char **Pointer, int AllowEmpty){
         return 0;
 }
 
+char ToUpper(char c)
+{
+    if (c < 97 || c > 122) return c;
+    return c - 32; // ascii offset from lower to upper character (e.g. a=97, A=65)
+}
 
+void PrintNewLine(unsigned short count)
+{
+    while(count)
+    {
+        printf("\n");
+        count--;
+    }
+}

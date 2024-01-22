@@ -74,4 +74,8 @@
     ***************************************************************************/
     void chooseSortingDirection(sAppointment *calendar, int sortingTypeID);
 
+    void listOneAppointment(sAppointment * app);
+    char * getAppointmentDay(eDayOfTheWeek dayOfTheWeek);
+    char * add_time(sAppointment * app);
+
 #endif /* calendar_h */
