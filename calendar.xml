@@ -1,67 +1,128 @@
 <Calendar>
 	<Appointment>
-		<Date>01.01.0001</Date>
-		<Time>00:00:00</Time>
-		<Description>ob dieser angelegte termin mit minimalen daten auch funktioniert???</Description>
-		<Duration>00:00</Duration>
-	</Appointment>
-	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>15:10:00</Time>
-		<Description>zur hochschule fahren</Description>
-		<Duration>01:10</Duration>
-	</Appointment>
-	<Appointment>
-		<Date>30.11.2023</Date>
-		<Time>15:10:00</Time>
+		<Description>zur Hochschule fahren</Description>
+		<Location>BHT</Location>
 		<Duration>01:30</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>16:00:00</Time>
-		<Description>aud seminaristischer unterricht</Description>
-		<Location>Raum D 136 (H5)</Location>
+		<Description>AuD Seminaristischer Unterricht</Description>
+		<Location>BHT</Location>
 		<Duration>01:30</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>17:45:00</Time>
-		<Description>aud uebungsgruppe 2 - vierte uebungsaufgabe abgeben</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:05</Duration>
+		<Description>AuD Uebungsgruppe 2 - Vierte Uebungsaufgabe abgeben</Description>
+		<Location>BHT</Location>
+		<Duration>01:30</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>30.11.2023</Date>
 		<Time>19:30:00</Time>
-		<Description>aud nachsitzen</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:00</Duration>
+		<Description>AuD Nachsitzen</Description>
+		<Location>BHT</Location>
+		<Duration>23:59</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>01.12.2023</Date>
+		<Time>05:30:00</Time>
+		<Description>Erstes Tuerchen oeffnen</Description>
+		<Location>Zuhause</Location>
+		<Duration>00:20</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>06.12.2023</Date>
-		<Time>00:00:00</Time>
-		<Description>dem nikolaus auflauern</Description>
-		<Location>Wohnzimmer</Location>
+		<Time>04:00:00</Time>
+		<Description>dem Nikolaus auflauern</Description>
+		<Location>Zuhause</Location>
+		<Duration>03:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>14.12.2023</Date>
+		<Time>16:00:00</Time>
+		<Description>AuD Seminaristischer Unterricht</Description>
+		<Location>BHT</Location>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>14.12.2023</Date>
+		<Time>18:50:00</Time>
+		<Description>Sandmaennchen</Description>
+		<Location>Zuhause auf der</Location>
+		<Duration>00:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>16.12.2023</Date>
+		<Time>06:00:00</Time>
+		<Description>Wecker ausschalten und weiterschlafen</Description>
+		<Location>Zuhause im bett</Location>
+		<Duration>00:05</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>17.12.2023</Date>
+		<Time>10:00:00</Time>
+		<Description>ausgiebiges Fruehstueck</Description>
+		<Location>Zuhause am frü</Location>
+		<Duration>02:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>17.12.2023</Date>
+		<Time>16:00:00</Time>
+		<Description>ueppiges Mittagessen</Description>
+		<Location>Zuhause </Location>
+		<Duration>01:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>17.12.2023</Date>
+		<Time>20:00:00</Time>
+		<Description>reichhaltiges Abendessen</Description>
+		<Location>Zuhause</Location>
+		<Duration>01:00</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>17.12.2023</Date>
+		<Time>23:00:00</Time>
+		<Description>kleines Nachtmahl</Description>
+		<Location>zuhause</Location>
+		<Duration>00:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>21.12.2023</Date>
+		<Time>17:45:00</Time>
+		<Description>AuD - Letzte Uebung in diesem Jahr</Description>
+		<Location>BHT</Location>
+		<Duration>01:30</Duration>
+	</Appointment>
+	<Appointment>
+		<Date>23.12.2023</Date>
+		<Time>16:00:00</Time>
+		<Description>noch schnell ein paar Geschenke kaufen</Description>
+		<Location>in der Mall</Location>
 		<Duration>03:00</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>31.12.2023</Date>
 		<Time>20:00:00</Time>
-		<Description>silvester-party</Description>
-		<Duration>12:00</Duration>
+		<Description>Silvester-Party</Description>
+		<Location>Berlin</Location>
+		<Duration>05:00</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>04.01.2024</Date>
 		<Time>16:00:00</Time>
-		<Description>aud - endlich wieder seminaristischer unterricht</Description>
-		<Location>Raum D 136 (H5)</Location>
-		<Duration>01:30</Duration>
+		<Description>AuD - endlich wieder Seminaristischer Unterricht</Description>
+		<Location>BHT</Location>
+		<Duration>16:00</Duration>
 	</Appointment>
 	<Appointment>
 		<Date>04.01.2024</Date>
 		<Time>17:45:00</Time>
-		<Description>aud - abgabe 6. aufgabe</Description>
-		<Location>Raum D 114</Location>
-		<Duration>00:05</Duration>
+		<Description>AuD - Abgabe 6. Aufgabe</Description>
+		<Location>BHT</Location>
+		<Duration>02:00</Duration>
 	</Appointment>
 </Calendar>

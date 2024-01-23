@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "tools.h"
+#include "escapesequenzen.h"
 
 void clearBuffer(){
     char dummy;
@@ -50,6 +51,77 @@ void printLine(char c, int count){
     printf("\n");
 }
 
+int newGetText(char* prompt, int maxLen, char** text, int isEmptyInputAllowed)
+{
+    int isInputValid = 0, len;
+    char format[15];
+    if (maxLen <= 0 || !text) return 0;
+
+    char* input = calloc(maxLen + 1, sizeof(char));
+    if (!input) return printf("malloc fehler");
+
+    sprintf(format, "%%%i[^\n]", maxLen);
+
+    if (prompt) printf("  %-12s: ", prompt);
+
+    STORE_POS;
+
+    do
+    {
+        RESTORE_POS;
+        FORECOLOR_YELLOW;
+        printf("Enter text here. (max. %i characters; Empty %s allowed)%-*s", maxLen, isEmptyInputAllowed ? "is" : "is not", 36, "");
+        RESTORE_POS;
+        FORECOLOR_WHITE;
+
+        isInputValid = scanf(format, input);
+        clearBuffer();
+
+        RESTORE_POS;
+        if (isInputValid)
+        {
+            len = strlen(input);
+            if (len > 0)
+            {
+                *text = malloc(len + 1);
+                if (*text)
+                {
+                    strcpy(*text, input);
+                    printf("%-*s\n", 100, input);
+                }
+                else return printf("malloc fehler");
+            }
+            else
+            {
+                if (!isEmptyInputAllowed)
+                {
+                    printf("Invalid input! Empty input is not allowed. ");
+                    waitForEnter();
+                    isInputValid = 0;
+                }
+                else isInputValid = 1;
+            }
+        }
+        else
+        {
+            if (isEmptyInputAllowed)
+            {
+                printf("No %s set ...%*s\n", prompt, 60, "");
+                isInputValid = 1;
+            }
+            else
+            {
+                printf("Invalid input! Empty input is not allowed. ");
+                waitForEnter();
+                isInputValid = 0;
+            }
+        }
+    } while (!isInputValid);
+    free(input);
+    input = NULL;
+
+    return isInputValid;
+}
 
 int getText(char*promptMessage, unsigned max, char **Pointer, int AllowEmpty){
     char*Input;

@@ -52,6 +52,72 @@ void swapAppointmentPointer(sAppointment *pointer1, sAppointment *pointer2){
     *pointer2 = temp;
 }
 
+int Sort_description(sAppointment * app1, sAppointment * app2)
+{
+    if (app1->Description && app2->Description) // both pointers are set <==> both have descriptions
+    {
+        int cmp_result = text_cmp(app1->Description, app2->Description); // descriptions are checked char by char (note that upper case in ascii is < than lower case)
+        if (cmp_result) return cmp_result; // if they were not equal, a value >0 is returned if the first different character in str1 was greater than in str2, a value <0 if it was less than in str2
+        else // the description were equal text_cmp returned 0
+        {
+            cmp_result = date_cmp(app1->Date, app2->Date); // dates are checked for difference in order year > month > day
+            if (cmp_result) return cmp_result; // if date1 is smaller -1 is returned, elif date1 is greater 1, in case of equality 0.
+            else // case 0
+            {
+                cmp_result = time_cmp(app1->Time, app2->Time); // time is checked for difference in order hour > minute > second
+                if (cmp_result) return cmp_result; // if time1 is smaller -1 is returned, elif time1 is greater 1, in case of equality 0.
+                else return 0; // no further investigation for inequality, 0 is returned which basically count as app1 < app2 => while loop continuous to search for an app with a greater value in the sorting field
+            }
+        }
+    }
+    else if (!app1->Description && app2->Description) return -1; // no description was set for app1 => pointer is NULL => it is counted in a way that app1 is < app2
+    else if (app1->Description) return 1; // no description was set for app2 => pointer is NULL => it is counted in a way that app1 is > app2
+    else return 0; // no descriptions were set for apps => pointers are both NULL => it is counted in a way that app1 is = app2, which just continuous the while loop to search for a greater value in the sorting field
+}
+
+int text_cmp(char * s1, char * s2)
+{
+    return strcmp(s1, s2);
+}
+
+int date_cmp(sDate d1, sDate d2)
+{
+    int diff = int_cmp(d1.Year, d2.Year);
+    if (diff) return diff;
+    else
+    {
+        diff = int_cmp(d1.Month, d2.Month);
+        if (diff) return diff;
+        else
+        {
+            diff = int_cmp(d1.Day, d2.Day);
+            if (diff) return diff;
+            else return 0;
+        }
+    }
+}
+
+int time_cmp(sTime t1, sTime t2)
+{
+    int diff = int_cmp(t1.Hour, t2.Hour);
+    if (diff) return diff;
+    else
+    {
+        diff = int_cmp(t1.Minute, t2.Minute);
+        if (diff) return diff;
+        else
+        {
+            diff = int_cmp(t1.Second, t2.Second);
+            if (diff) return diff;
+            else return 0;
+        }
+    }
+}
+
+int int_cmp(int a, int b)
+{
+    return a - b;
+}
 
 // das sind meine CMPFCT(compare function) funktionen
 int compareDateAndTimeIncreasing(sAppointment *pointer1, sAppointment *pointer2){

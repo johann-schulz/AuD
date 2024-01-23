@@ -72,10 +72,13 @@
     *  Parameter: pointer on Calendar, ID for Type of sorting
     *  Ergebnis : -
     ***************************************************************************/
-    void chooseSortingDirection(sAppointment *calendar, int sortingTypeID);
-
+    //void chooseSortingDirection(sAppointment *calendar, int sortingTypeID);
     void listOneAppointment(sAppointment * app);
     char * getAppointmentDay(eDayOfTheWeek dayOfTheWeek);
     char * add_time(sAppointment * app);
+    void printFunctionHeader(char * title);
+    void searchAppointment();
+
+
 
 #endif /* calendar_h */

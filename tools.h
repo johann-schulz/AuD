@@ -63,5 +63,6 @@
     char ToUpper(char c);
 
     void PrintNewLine(unsigned short count);
+    int newGetText(char* prompt, int maxLen, char** text, int isEmptyInputAllowed);
 
 #endif /* tools_h */

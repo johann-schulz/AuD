@@ -104,6 +104,11 @@ int compareLocationAndDateAndTimeIncreasing(sAppointment *pointer1, sAppointment
 *  Ergebnis : -
 ***************************************************************************/
 int compareLocationAndDateAndTimeDecreasing(sAppointment *pointer1, sAppointment *pointer2);
+int int_cmp(int a, int b);
+int time_cmp(sTime t1, sTime t2);
+int date_cmp(sDate d1, sDate d2);
+int text_cmp(char * s1, char * s2);
+int Sort_description(sAppointment * app1, sAppointment * app2);
 
 
 

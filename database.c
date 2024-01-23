@@ -7,6 +7,7 @@
 #include "datetime.h"
 #include "list.h"
 #include "sort.h"
+#include "search.h"
 
 extern sAppointment *First, *Last;
 
@@ -139,6 +140,7 @@ int loadCalendar() {
                 tmp->Duration->Minute = duration.Minute;
                 tmp->Duration->Second = duration.Second;
                 insertInDList(tmp, compareDateAndTimeIncreasing);
+                if (tmp->Description) if(AppendInSList((HashTable + DivRest(tmp->Description)), tmp)) exit(EXIT_FAILURE);
                 countAppointments++;
             }
         }
